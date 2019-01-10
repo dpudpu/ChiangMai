@@ -1,6 +1,6 @@
-# Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -11,13 +11,16 @@
 .springBeans
 .sts4-cache
 
-# IntelliJ
-out/
-
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
 
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/
+/.nb-gradle/ 
