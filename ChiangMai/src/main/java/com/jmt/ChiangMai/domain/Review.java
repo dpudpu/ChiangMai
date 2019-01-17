@@ -11,6 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Review {

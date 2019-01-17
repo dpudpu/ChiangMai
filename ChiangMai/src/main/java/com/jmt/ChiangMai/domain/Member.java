@@ -1,7 +1,6 @@
 package com.jmt.ChiangMai.domain;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -11,6 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Member {
@@ -32,7 +32,7 @@ public class Member {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date regDate;
+    private Date regdate;
 
     @OneToMany
     @JoinColumn(name = "member_id")
@@ -49,4 +49,5 @@ public class Member {
             joinColumns=@JoinColumn(name="member_id"),
             inverseJoinColumns = @JoinColumn(name="shop_id"))
     private Set<Shop> shops;
+
 }

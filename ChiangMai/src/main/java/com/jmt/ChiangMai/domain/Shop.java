@@ -10,7 +10,7 @@ import java.util.Set;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Shop {
