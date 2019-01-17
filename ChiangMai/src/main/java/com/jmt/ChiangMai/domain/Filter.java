@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Filter {
