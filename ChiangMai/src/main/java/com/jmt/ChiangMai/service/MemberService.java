@@ -13,9 +13,11 @@ public interface MemberService {
 
     boolean checkNickname(String nickname);
 
+    boolean checkPassword(String password);
+
     boolean checkEmail(String email);
 
-    boolean checkPassword(String password);
+    Member getMember(String email);
 
     Member modifyMemberInfo(Member member);
 
