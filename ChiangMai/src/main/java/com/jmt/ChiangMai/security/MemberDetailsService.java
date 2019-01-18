@@ -24,7 +24,7 @@ public class MemberDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = memberService.getMember(email);
-        if(member==null)
+        if (member==null)
             throw new UsernameNotFoundException(email+" is not found !");
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();

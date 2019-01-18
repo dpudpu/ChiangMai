@@ -1,9 +1,11 @@
 package com.jmt.ChiangMai.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,12 +27,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                     .loginPage("/members/login")
-                    .loginProcessingUrl("/").permitAll()
+                    .loginProcessingUrl("/members/login").permitAll()
+                    .defaultSuccessUrl("/")
+                    .successHandler(successHandler())
+                    .usernameParameter("email")
                     .and()
                 .logout()
                     .logoutSuccessUrl("/")
                     .permitAll()
                     .and()
                 .headers(); //  headers ( ) 메서드로 보안 헤더를 활성화하면 브라우저가 더 이상 페이지를 캐시하지 않습니다;
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler(){
+        return new LoginSuccessHandler("/");
     }
 }

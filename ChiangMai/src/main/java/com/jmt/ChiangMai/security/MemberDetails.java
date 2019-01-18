@@ -13,8 +13,8 @@ public class MemberDetails extends User {
     private String nickname;
     private Long id;
 
-    public MemberDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, true, true, true, true, authorities);
+    public MemberDetails(String email, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(email, password, true, true, true, true, authorities);
     }
 }
 
