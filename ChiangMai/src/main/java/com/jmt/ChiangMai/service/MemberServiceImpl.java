@@ -1,5 +1,6 @@
 package com.jmt.ChiangMai.service;
 
+import com.jmt.ChiangMai.config.WebMvcConfig;
 import com.jmt.ChiangMai.domain.Member;
 import com.jmt.ChiangMai.domain.Role;
 import com.jmt.ChiangMai.repository.MemberRepository;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +20,15 @@ import java.util.Set;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
     @Transactional
     public Member signUp(Member member) {
+        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+
         Member memberInfo = memberRepository.save(member);
-
-        // 패스워드 인코딩
-
 
         Set<Role> roles = roleRepository.findByName("USER");
         memberInfo.setRoles(roles);
@@ -99,5 +101,11 @@ public class MemberServiceImpl implements MemberService {
                 break;
         }
         return members;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Member getMember(String email){
+        return memberRepository.findByEmail(email);
     }
 }

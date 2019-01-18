@@ -1,4 +1,4 @@
-package com.jmt.ChiangMai.Controller.Member;
+package com.jmt.ChiangMai.controller.member;
 
 import com.jmt.ChiangMai.domain.Member;
 import com.jmt.ChiangMai.service.MemberService;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/members")
 @RequiredArgsConstructor
@@ -16,13 +18,22 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/login")
-    public String login(){
-        return "login";
+    public String loginForm(HttpServletRequest req) {
+        String referer = req.getHeader("Referer");
+        req.getSession().setAttribute("prevPage",referer);
+        return "/members/login";
+    }
+
+    @GetMapping("/signUp")
+    public String signUpForm() {
+        return "/members/signUp";
     }
 
     @PostMapping("/signUp")
-    public String signUp(@ModelAttribute Member member){
-        memberService.signUp(member);
-        return "redirect:/";
+    public String signUp(@ModelAttribute Member member) {
+        if (memberService.signUp(member) != null)
+            return "redirect:/members/login";
+        else//TODO 회원가입 실패시 에러 처리
+            return "/error";
     }
 }

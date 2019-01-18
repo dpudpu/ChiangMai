@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>로그인</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        <div class="jumbotron" style="padding-top: 20px;">
+            <form method="post" id="login" name="login" action="/members/login" >
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />`
+
+                <h3 style="text-align: center;">로그인</h3>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" name="email" autofocus="autofocus" required th:autofocus="autofocus"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" name="password" required/>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary form-control" value="로그인">
+                </div>
+                <div>
+                    <input type="button" onclick="location.href='/'" class="btn btn-default form-control" value="취소">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="httpRequest.js"></script>
+</body>
+</html>
