@@ -30,16 +30,11 @@ public class Shop {
     @Column(nullable = false)
     private String address;
 
-    @Column
-    private String price;
-
-    @Column
-    private String openHours;
 
     @Column
     private String content;
 
-    @Column
+    @Column(nullable = false, columnDefinition = "int default 0")
     private int rating;
 
     @Temporal(TemporalType.TIMESTAMP)
