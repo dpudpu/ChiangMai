@@ -30,6 +30,11 @@ public class Shop {
     @Column(nullable = false)
     private String address;
 
+    @Column
+    private Long open;
+
+    @Column
+    private Long close;
 
     @Column
     private String content;
