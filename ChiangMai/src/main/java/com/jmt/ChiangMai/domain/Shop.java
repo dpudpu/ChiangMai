@@ -31,15 +31,15 @@ public class Shop {
     private String address;
 
     @Column
-    private String price;
+    private Long open;
 
     @Column
-    private String openHours;
+    private Long close;
 
     @Column
     private String content;
 
-    @Column
+    @Column(nullable = false, columnDefinition = "int default 0")
     private int rating;
 
     @Temporal(TemporalType.TIMESTAMP)
