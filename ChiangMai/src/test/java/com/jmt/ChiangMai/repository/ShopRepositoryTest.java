@@ -6,9 +6,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,8 @@ public class ShopRepositoryTest {
         List<String> types = new ArrayList<>();
         types.add("마사지");
         types.add("식당");
-        List<Shop> shops = shopRepository.findByType(types);
+        Pageable pageable = PageRequest.of(0,2000, Sort.Direction.DESC, "id");
+        List<Shop> shops = shopRepository.findByType(types, pageable);
 
 
         for (Shop s : shops
@@ -35,14 +38,14 @@ public class ShopRepositoryTest {
     }
 
     @Test
-    public void 영업중_검색(){
-        List<Shop> shops =  shopRepository.findByOpenAfterAndCloseBefore(15L);
-        for(Shop s:shops)
+    public void 영업중_검색() {
+        List<Shop> shops = shopRepository.findByOpenAfterAndCloseBefore(15L);
+        for (Shop s : shops)
             System.out.println(s.getName());
     }
 
     @Test
-    public void 필터_검색(){
+    public void 필터_검색() {
         List<String> types = new ArrayList<>();
         types.add("식당");
 
@@ -50,10 +53,12 @@ public class ShopRepositoryTest {
         filters.add("한식");
         filters.add("일식");
 
-        List<Shop> shops =  shopRepository.findByTypeAndFilters(types, filters);
-        for(Shop s:shops) {
+        Pageable pageable = PageRequest.of(0,2000, Sort.Direction.DESC, "id");
+
+                List < Shop > shops = shopRepository.findByTypeAndFilters(types, filters, pageable);
+        for (Shop s : shops) {
             System.out.println(s.getId() + "/" + s.getName() + " / " + s.getType() + " / ");
-            for(Filter f : s.getFilters())
+            for (Filter f : s.getFilters())
                 System.out.println(f.getName());
         }
     }
