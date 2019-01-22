@@ -1,6 +1,7 @@
 package com.jmt.ChiangMai.repository;
 
 import com.jmt.ChiangMai.domain.Member;
+import com.jmt.ChiangMai.domain.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Transactional
@@ -19,6 +22,8 @@ public class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Test
     public void 이메일_패스워드_조회(){
@@ -41,12 +46,30 @@ public class MemberRepositoryTest {
         PageRequest pageRequest = PageRequest.of(0, 3, Sort.Direction.DESC,"id");
         Page<Member> members =  memberRepository.findAll(pageRequest);
 
-        for(Member m : members)
-            System.out.println(m.getNickname()+" / "+m.getEmail());
+        for(Member m : members) {
+            System.out.println(m.getNickname() + " / " + m.getEmail());
+        }
 
         System.out.println(members.getTotalPages());
         System.out.println(members.hasNext());
         System.out.println(members.getTotalElements());
+
+    }
+
+    @Test
+    public void 회원탈퇴(){
+        List<Member> members = memberRepository.findAll();
+
+        for(Member m : members) {
+            System.out.println(m.getId() + " / " + m.getEmail());
+        }
+        memberRepository.deleteById(1L);
+
+        members = memberRepository.findAll();
+
+        for(Member m : members) {
+            System.out.println(m.getId() + " / " + m.getEmail());
+        }
 
     }
 
