@@ -1,6 +1,5 @@
 package com.jmt.ChiangMai.service;
 
-import com.jmt.ChiangMai.config.WebMvcConfig;
 import com.jmt.ChiangMai.domain.Member;
 import com.jmt.ChiangMai.domain.Role;
 import com.jmt.ChiangMai.repository.MemberRepository;
