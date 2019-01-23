@@ -45,7 +45,7 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     public Shop addShop(Shop shop) {
         Shop shopInfo = shopRepository.save(shop);
-
+        shopInfo.setShopImages(shopInfo.getShopImages());
         return shopInfo;
     }
 

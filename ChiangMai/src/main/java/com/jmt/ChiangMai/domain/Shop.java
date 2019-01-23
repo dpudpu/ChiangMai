@@ -64,7 +64,7 @@ public class Shop {
             inverseJoinColumns = @JoinColumn(name = "filter_id"))
     private Set<Filter> filters;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
     private Set<ShopImages> shopImages;
 }
