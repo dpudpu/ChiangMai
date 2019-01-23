@@ -53,6 +53,9 @@ public class Shop {
     @Column(nullable = false, columnDefinition = "int default 0")
     private int hit;
 
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @OneToMany
     @JoinColumn(name = "shop_id")
@@ -60,7 +63,7 @@ public class Shop {
 
     @ManyToMany
     @JoinTable(name = "shop_filter",
-            joinColumns = @JoinColumn(name = "shop_id"),
+            joinColumns = @JoinColum    n(name = "shop_id"),
             inverseJoinColumns = @JoinColumn(name = "filter_id"))
     private Set<Filter> filters;
 
