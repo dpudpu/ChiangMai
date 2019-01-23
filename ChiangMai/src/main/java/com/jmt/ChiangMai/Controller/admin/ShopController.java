@@ -1,7 +1,7 @@
 package com.jmt.ChiangMai.controller.admin;
 
 import com.jmt.ChiangMai.domain.Shop;
-import com.jmt.ChiangMai.domain.ShopImages;
+import com.jmt.ChiangMai.domain.ShopImage;
 import com.jmt.ChiangMai.service.ShopService;
 import com.jmt.ChiangMai.util.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class ShopController {
 
     @PostMapping
     public String addShop(@ModelAttribute Shop shop, @RequestParam("files") MultipartFile[] files) {
-        shop.setShopImages(new HashSet<ShopImages>());
+        shop.setShopImages(new HashSet<ShopImage>());
 
         if (!files[0].isEmpty()) {
             for (MultipartFile file : files)

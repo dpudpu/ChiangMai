@@ -2,7 +2,6 @@ package com.jmt.ChiangMai.service;
 
 import com.jmt.ChiangMai.domain.Filter;
 import com.jmt.ChiangMai.domain.Shop;
-import com.jmt.ChiangMai.domain.ShopImages;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 

@@ -66,5 +66,5 @@ public class Shop {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
-    private Set<ShopImages> shopImages;
+    private Set<ShopImage> shopImages;
 }

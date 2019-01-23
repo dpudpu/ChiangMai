@@ -2,8 +2,6 @@ package com.jmt.ChiangMai.service;
 
 import com.jmt.ChiangMai.domain.Filter;
 import com.jmt.ChiangMai.domain.Shop;
-import com.jmt.ChiangMai.domain.ShopImages;
-import com.jmt.ChiangMai.repository.ShopImagesRepository;
 import com.jmt.ChiangMai.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShopServiceImpl implements ShopService {
     private final ShopRepository shopRepository;
-    private final ShopImagesRepository shopImagesRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -59,7 +56,6 @@ public class ShopServiceImpl implements ShopService {
     @Override
     @Transactional
     public void deleteShopImage(Long id) {
-        shopImagesRepository.deleteById(id);
     }
 
 }

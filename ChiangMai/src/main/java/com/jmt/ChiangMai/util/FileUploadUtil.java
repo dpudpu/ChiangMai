@@ -1,7 +1,7 @@
 package com.jmt.ChiangMai.util;
 
 import com.jmt.ChiangMai.config.FileStorageProperties;
-import com.jmt.ChiangMai.domain.ShopImages;
+import com.jmt.ChiangMai.domain.ShopImage;
 import com.jmt.ChiangMai.exception.FileUploadException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.util.UUID;
 public class FileUploadUtil {
     private final FileStorageProperties fileProperties;
 
-    public ShopImages uploadFile(MultipartFile file) {
+    public ShopImage uploadFile(MultipartFile file) {
         String originalName = StringUtils.cleanPath(file.getOriginalFilename());
         String uuidStr = UUID.randomUUID().toString();
         String savedName = uuidStr + originalName;
@@ -35,7 +35,7 @@ public class FileUploadUtil {
             throw new FileUploadException("Could not store file " + originalName + ". Please try again!", ex);
         }
 
-        return ShopImages.builder()
+        return ShopImage.builder()
                 .originalName(originalName)
                 .savedName(savedName)
                 .type(file.getContentType())
