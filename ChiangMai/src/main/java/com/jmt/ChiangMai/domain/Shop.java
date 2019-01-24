@@ -10,7 +10,8 @@ import java.util.Set;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Shop {
@@ -63,7 +64,7 @@ public class Shop {
 
     @ManyToMany
     @JoinTable(name = "shop_filter",
-            joinColumns = @JoinColum    n(name = "shop_id"),
+            joinColumns = @JoinColumn(name = "shop_id"),
             inverseJoinColumns = @JoinColumn(name = "filter_id"))
     private Set<Filter> filters;
 
