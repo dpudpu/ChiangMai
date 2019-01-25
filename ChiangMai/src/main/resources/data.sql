@@ -46,3 +46,9 @@ INSERT INTO shop_filter(shop_id, filter_id) VALUES (2, 2);
 INSERT INTO shop_filter(shop_id, filter_id) VALUES (3, 1);
 INSERT INTO shop_filter(shop_id, filter_id) VALUES (3, 3);
 INSERT INTO shop_filter(shop_id, filter_id) VALUES (4, 4);
+
+-- review
+INSERT INTO review(rating, shop_id, member_id) VALUES (10, 1, 1);
+INSERT INTO review(rating, shop_id, member_id) VALUES (5, 1, 2);
+INSERT INTO review(rating, shop_id, member_id) VALUES (8, 1, 2);
+INSERT INTO review(rating, shop_id, member_id) VALUES (5, 2, 1);
