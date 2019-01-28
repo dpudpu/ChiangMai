@@ -6,8 +6,7 @@
 </head>
 <body>
 
-<form method="POST" name="shop" action="/admin/shops" enctype="multipart/form-data">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<form method="POST" name="shop" th:action="@{/admin/shops}"  enctype="multipart/form-data">
 
     name <input type="text" placeholder="Google restaurant" name="name" required><br>
     address <input type="text" name="address" required> <br>
@@ -21,7 +20,7 @@
     close <input type="number" name="close" min="0" max="24"> <br>
     content <textarea maxlength="300" name="content"></textarea> <br>
 
-    images <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple/> <br>
+    images <input id="multipleFileUploadInput" type="file" name="images" class="file-input" multiple/> <br>
     <input type="submit" value="글쓰기">
     <input type="button" value="취소" onclick="location.href='/'">
 
