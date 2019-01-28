@@ -37,6 +37,8 @@ dependencies {
     testImplementation('org.springframework.security:spring-security-test')
     testCompile group: 'com.h2database', name: 'h2', version:'1.4.194'
 
+    compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.3.0'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.4.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.0.RELEASE'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
     compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version:'9.0.12'
