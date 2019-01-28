@@ -58,8 +58,7 @@ public class Shop {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany
-    @JoinColumn(name = "shop_id")
+    @OneToMany(mappedBy = "shop")
     private Set<Review> reviews;
 
     @ManyToMany

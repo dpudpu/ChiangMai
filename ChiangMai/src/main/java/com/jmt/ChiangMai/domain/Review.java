@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table
@@ -33,4 +34,15 @@ public class Review {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date regdate;
 
+    @OneToMany
+    @JoinColumn(name = "review_id")
+    private Set<ShopImage> shopImages;
+
+    @ManyToOne
+    @JoinColumn(name="shop_id", nullable = false)
+    private Shop shop;
+
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member member;
 }

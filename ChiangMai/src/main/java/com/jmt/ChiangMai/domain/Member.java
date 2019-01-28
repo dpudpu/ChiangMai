@@ -34,8 +34,7 @@ public class Member {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date regdate;
 
-    @OneToMany
-    @JoinColumn(name = "member_id")
+    @OneToMany(mappedBy = "member")
     private Set<Review> reviews;
 
     @ManyToMany
