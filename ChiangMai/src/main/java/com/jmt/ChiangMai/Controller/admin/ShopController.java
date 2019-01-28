@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashSet;
 
 @Controller
-@RequestMapping("/shops")
+@RequestMapping("/admin/shops")
 @RequiredArgsConstructor
 public class ShopController {
     private final ShopService shopService;
