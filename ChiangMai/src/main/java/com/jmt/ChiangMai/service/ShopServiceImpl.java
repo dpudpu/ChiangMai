@@ -19,7 +19,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Shop> getShops(Sort sort) {
+    public List<Shop> getAll(Sort sort) {
         return shopRepository.findAll();
     }
 
@@ -31,7 +31,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public Shop modifyShop(Shop shop) {
+    public Shop modify(Shop shop) {
         Shop shopInfo = shopRepository.getOne(shop.getId());
         BeanUtils.copyProperties(shop, shopInfo);
         // TODO 이미지 수정
@@ -40,7 +40,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public Shop addShop(Shop shop) {
+    public Shop add(Shop shop) {
         Shop shopInfo = shopRepository.save(shop);
         shopInfo.setShopImages(shopInfo.getShopImages());
         return shopInfo;
@@ -49,7 +49,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public void deleteShop(Long id) {
+    public void delete(Long id) {
         shopRepository.deleteById(id);
     }
 

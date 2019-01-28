@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashSet;
 
 @Controller
-@RequestMapping("/admin/shops")
+@RequestMapping("/shops")
 @RequiredArgsConstructor
 public class ShopController {
     private final ShopService shopService;
@@ -20,19 +20,20 @@ public class ShopController {
 
 
     @GetMapping
-    public String addShop() {
-        return "/admin/shops/write";
+    public String add() {
+        return "/shops/write";
     }
 
     @PostMapping
-    public String addShop(@ModelAttribute Shop shop, @RequestParam("files") MultipartFile[] files) {
+    public String add(@ModelAttribute Shop shop, @RequestParam("images") MultipartFile[] images) {
         shop.setShopImages(new HashSet<ShopImage>());
 
-        if (!files[0].isEmpty()) {
-            for (MultipartFile file : files)
-                shop.getShopImages().add(fileUploadUtil.uploadFile(file));
+        if (!images[0].isEmpty()) {
+            for (MultipartFile image : images)
+                shop.getShopImages().add(fileUploadUtil.uploadFile(image));
         }
-        Shop shopInnfo = shopService.addShop(shop);
+        //TODO 글쓴이 넣기
+        shop = shopService.add(shop);
 
         return "redirect:/";
     }
