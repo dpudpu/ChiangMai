@@ -107,4 +107,10 @@ public class MemberServiceImpl implements MemberService {
     public Member getMember(String email){
         return memberRepository.findByEmail(email);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Member getMember(Long id){
+        return memberRepository.getOne(id);
+    }
 }

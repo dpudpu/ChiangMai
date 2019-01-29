@@ -16,31 +16,41 @@ import javax.servlet.http.HttpServletRequest;
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping("/login")
-    public String loginForm(Model model,
-                            HttpServletRequest req,
-                            @RequestParam(value = "failure", defaultValue = "false") String failure,
-                            @RequestParam(value = "email", defaultValue = "") String email) {
-        if(failure.equals("true")){
-            model.addAttribute("failure", true);
-            model.addAttribute("email",email);
-        }else {
-            String referer = req.getHeader("Referer");
-            req.getSession().setAttribute("prevPage", referer);
-        }
-        return "/members/login";
-    }
-
-    @GetMapping("/signUp")
+    @GetMapping
     public String signUpForm() {
         return "/members/signUp";
     }
 
-    @PostMapping("/signUp")
+    @PostMapping
     public String signUp(@ModelAttribute Member member) {
         if (memberService.signUp(member) != null)
-            return "redirect:/members/login";
+            return "redirect:/session";
         else//TODO 회원가입 실패시 에러 처리
             return "/error";
+    }
+
+    @GetMapping("/{memberId}")
+    public String getMemberInfo(@PathVariable Long id) {
+        // TODO form 작성, 마무리하기
+        Member member = memberService.getMember(id);
+        return null;
+    }
+
+    @GetMapping("/modify/{memberId}")
+    public String modifyInnfo(@PathVariable Long id, Model model){
+        // TODO view 만들기
+        model.addAttribute(memberService.getMember(id));
+        return null;
+    }
+    @PutMapping("/{memberId}")
+    public String modify(@PathVariable Member member) {
+        // TODO form 작성, 마무리하기
+        Member memberInfo = memberService.modifyMemberInfo(member);
+        return "redirect:/members/" + memberInfo.getId();
+    }
+
+    @DeleteMapping("/{memberId}")
+    public String delete() {
+        return "redirect:/";
     }
 }

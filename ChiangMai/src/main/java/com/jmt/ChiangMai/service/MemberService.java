@@ -19,6 +19,8 @@ public interface MemberService {
 
     Member getMember(String email);
 
+    Member getMember(Long id);
+
     Member modifyMemberInfo(Member member);
 
     int modifyMemberRoles(Long id, Long[] roles);
