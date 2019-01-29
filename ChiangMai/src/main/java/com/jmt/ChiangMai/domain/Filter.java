@@ -8,13 +8,17 @@ import javax.persistence.*;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Filter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String type;
 
     @Column(nullable = false, unique = true)
     private String name;

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>이름</th>
+        <th>타입</th>
+    </tr>
+    <tr th:each="filter : ${filters}">
+        <td th:text="${filter.id}"></td>
+        <td th:text="${filter.name}"></td>
+        <td th:text="${filter.type}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
