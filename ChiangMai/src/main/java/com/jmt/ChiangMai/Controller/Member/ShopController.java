@@ -3,9 +3,11 @@ package com.jmt.ChiangMai.controller.member;
 import com.jmt.ChiangMai.domain.Shop;
 import com.jmt.ChiangMai.service.ShopService;
 import com.jmt.ChiangMai.util.FileUploadUtil;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,14 +22,17 @@ public class ShopController {
     private final FileUploadUtil fileUploadUtil;
 
     @GetMapping
-    public String getList(@RequestParam("orderType") String orderType,
-                          @RequestParam("filters") List<String> filters,
-                          @RequestParam("types") List<String> types) {
+    public String getList(@RequestParam(value = "orderType", defaultValue = "rating") String orderType,
+                          @RequestParam(value = "filters", required = false) List<String> filters,
+                          @RequestParam(value = "types", required = false) List<String> types,
+                          Model model) {
         List<Shop> shops;
         Sort sort = new Sort(Sort.Direction.DESC, orderType);
-//        shops = shopService.getAll();
-
-        shops = shopService.getShopsByFilters(types, filters, sort);
+        if (filters == null && types == null)
+            shops = shopService.getAll(sort);
+        else
+            shops = shopService.getShopsByFilters(types, filters, sort);
+        model.addAttribute("shops", shops);
         return "/members/shops/list";
     }
 
@@ -48,7 +53,6 @@ public class ShopController {
             for (MultipartFile image : images)
                 shop.getShopImages().add(fileUploadUtil.uploadFile(image));
         }
-        //TODO 글쓴이 넣기
         shopService.add(shop, memberId);
 
         return "redirect:/shops";
