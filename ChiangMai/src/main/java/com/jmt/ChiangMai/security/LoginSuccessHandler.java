@@ -23,7 +23,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if (session != null) {
             String redirectUrl = (String) session.getAttribute("prevPage");
 
-            if(redirectUrl.matches("(.*)members/signUp"))
+            if(redirectUrl.matches("(.*)members"))
             redirectUrl = getDefaultTargetUrl();
 
             if (redirectUrl != null) {

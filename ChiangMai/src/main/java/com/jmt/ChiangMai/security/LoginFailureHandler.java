@@ -11,7 +11,7 @@ import java.io.IOException;
 public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        response.sendRedirect("/members/login?failure=true&email="+request.getParameter("email"));
+        response.sendRedirect("/session?failure=true&email="+request.getParameter("email"));
 
         // 왜 POST로 전송되지? (Request method 'POST' not supported)
 //        request.setAttribute("email",request.getParameter("email"));

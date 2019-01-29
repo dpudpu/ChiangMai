@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<form method="POST" name="shop" th:action="@{/member/shops/add}"  enctype="multipart/form-data">
+<form method="POST" name="shop" th:action="@{/shops/edit}"  enctype="multipart/form-data">
+    <input type="hidden" name="memberId" th:value="${#authentication.principal.id}">
 
     name <input type="text" placeholder="Google restaurant" name="name" required><br>
     address <input type="text" name="address" required> <br>
