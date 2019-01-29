@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashSet;
 
 @Controller
-@RequestMapping("/review")
+@RequestMapping("/reviews")
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
@@ -20,7 +20,7 @@ public class ReviewController {
 
     @GetMapping
     public String add(){
-        return "shops/review/write";
+        return "members/review/edit";
     }
 
     @PostMapping
