@@ -3,7 +3,7 @@ insert into role (id,  name) values (1, 'USER');
 insert into role (id,  name) values (2, 'ADMIN');
 
 -- 회원
-INSERT INTO member (id, email, gender, nickname, password) VALUES (1, 'dpudpu11@gmail.com', '남자', '배대준','1234');
+INSERT INTO member (id, email, gender, nickname, password) VALUES (1, 'dpudpu@gmail.com', '남자', '배대준','$2a$10$Brjc.QgXNCcpqB2/Y3WTpeQh/mtwZAyYQPoBtXT7DSXtqCvHw6iMy');
 INSERT INTO member (id, email, gender, nickname, password) VALUES (2, 'asdf@gmail.com', '남자', '배대','1234');
 INSERT INTO member (id, email, gender, nickname, password) VALUES (3, 'dpu@gmail.com', '남자', '3','1234');
 INSERT INTO member (id, email, gender, nickname, password) VALUES (4, 'd@gmail.com', '남자', '대준','1234');
@@ -29,12 +29,12 @@ INSERT INTO shop(name, address, type) VALUES ('카페2', 'address', '카페');
 INSERT INTO shop(name, address, type, open, close ) VALUES ('카페3', 'address', '카페',0,20);
 
 -- Filter
-INSERT INTO filter(name) VALUES('일식');
-INSERT INTO filter(name) VALUES('한식');
-INSERT INTO filter(name) VALUES('양식');
-INSERT INTO filter(name) VALUES('가성비');
-INSERT INTO filter(name) VALUES('비쌈');
-INSERT INTO filter(name) VALUES('저렴');
+INSERT INTO filter(type, name) VALUES('식당','일식');
+INSERT INTO filter(type, name) VALUES('식당','한식');
+INSERT INTO filter(type, name) VALUES('식당','양식');
+INSERT INTO filter(type, name) VALUES('모두','가성비');
+INSERT INTO filter(type, name) VALUES('모두','비쌈');
+INSERT INTO filter(type, name) VALUES('모두','저렴');
 
 -- shop_filter
 INSERT INTO shop_filter(shop_id, filter_id) VALUES (1, 1);

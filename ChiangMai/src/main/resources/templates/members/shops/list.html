@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -20,20 +22,21 @@
     <input type="submit" value="검색">
 </form>
 
-<table>
-    <tr>
-        <th>이름</th>
-        <th>주소</th>
-        <th>별점</th>
-        <th>타입</th>
-    </tr>
-    <tr th:each="shop : ${shops}">
-        <td th:text="${shop.name}"></td>
-        <td th:text="${shop.address}"></td>
-        <td th:text="${shop.rating}"></td>
-        <td th:text="${shop.type}"></td>
-    </tr>
-</table>
-
+<section layout:fragment="app-content">
+    <table>
+        <tr>
+            <th>이름</th>
+            <th>주소</th>
+            <th>별점</th>
+            <th>타입</th>
+        </tr>
+        <tr th:each="shop : ${shops}">
+            <td th:text="${shop.name}"></td>
+            <td th:text="${shop.address}"></td>
+            <td th:text="${shop.rating}"></td>
+            <td th:text="${shop.type}"></td>
+        </tr>
+    </table>
+</section>
 </body>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav th:fragment="nav" role="navigation">
+<a href="/members">회원가입</a>
+<a href="/session">로그인</a>
+<div sec:authorize="isAuthenticated()">
+    <div sec:authentication="name"></div>
+    <div sec:authentication="principal"></div>
+    <div sec:authorize="hasRole('USER')">Text visible to user.</div>
+    <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+    <a href="/logout">로그아웃</a>
+</div>
+<a href="/shops/edit">shop 등록</a>
+<a href="/shops">list</a>
+<a href="/members/login?failure=true&email=">등록</a>
+</nav>
+</html>
