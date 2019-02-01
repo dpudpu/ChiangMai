@@ -2,13 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/main}">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-
 
 <section layout:fragment="app-content">
     <form method="GET" th:action="@{/shops}">
@@ -25,20 +18,37 @@
         <input type="submit" value="검색">
     </form>
 
-    <table>
-        <tr>
-            <th>이름</th>
-            <th>주소</th>
-            <th>별점</th>
-            <th>타입</th>
-        </tr>
-        <tr th:each="shop : ${shops}">
-            <td th:text="${shop.name}"></td>
-            <td th:text="${shop.address}"></td>
-            <td th:text="${shop.rating}"></td>
-            <td th:text="${shop.type}"></td>
-        </tr>
-    </table>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Page Heading -->
+        <h1 class="my-4">리스트</h1>
+
+        <div class="row">
+            <tr th:each="shop : ${shops}">
+                <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">
+                                    <th:block th:text="${shop.name}"></th:block>
+                                </a>
+                            </h4>
+                            <p class="card-text">
+                                <th:block th:text="${shop.address}"/>
+                                <th:block th:text="${shop.rating}"/>
+                            </p>
+                            <th:block th:text="${shop.content}"/>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
 </section>
-</body>
+
+
 </html>
