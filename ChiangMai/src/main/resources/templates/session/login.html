@@ -1,40 +1,63 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/main}">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/modernizr-2.6.2.min.js"></script>
 
 
 <th:block layout:fragment="app-content">
 
-    <div class="container">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-            <div class="jumbotron" style="padding-top: 20px;">
-                <form method="post" id="login" name="login" th:action="@{/session}">
-                    <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+    <!--TODO 비밀번호 찾기, 구글 로그인, RememberMe-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div style="margin-top: 30%; background-color: #fff; padding: 20px;" >
+                        <form class="fh5co-form animate-box" method="post" data-animate-effect="fadeIn"
+                              th:action="@{/session}">
+                            <h2>로그인</h2>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="email" placeholder="이메일" name="email"
+                                       th:value="${email}" autofocus="autofocus" th:autofocus="autofocus" required/>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="비밀번호"
+                                       autocomplete="off" required>
+                            </div>
+                            <div>
+                                <p th:if="${failure}">아이디 또는 비밀번호가 틀렸습니다.</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="remember"><input type="checkbox" id="remember">로그인 상태 유지</label>
+                            </div>
+                            <div class="form-group">
+                                <p><a href="/members">회원가입</a> | <a href="forgot.html">비밀번호 찾기</a></p>
+                            </div>
 
-                    <h3 style="text-align: center;">로그인</h3>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email" id="email" name="email"
-                               th:value="${email}" autofocus="autofocus" required th:autofocus="autofocus"/>
+                            <div class="form-group">
+                                <input type="submit" value="로그인" class="btn btn-primary">
+                                <input type="button" onclick="location.href='/'" value="취소" class="btn btn-default">
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control" name="password" required/>
-                    </div>
-                    <div>
-                        <input type="submit" class="btn btn-primary form-control" value="로그인">
-                    </div>
-                    <div>
-                        <input type="button" onclick="location.href='/'" class="btn btn-default form-control"
-                               value="취소">
-                    </div>
-                    <p th:if="${failure}">아이디 또는 비밀번호가 틀렸습니다.</p>
-                </form>
-
+                </div>
             </div>
         </div>
-    </div>
+        <div class="row" style="padding-top: 60px; clear: both;">
+            <div class="col-md-12 text-center">
+                <p>
+                    <small>&copy; All Rights Reserved. Designed by <a href="https://freehtml5.co">FreeHTML5.co</a>
+                    </small>
+                </p>
+            </div>
+        </div>
+        </div>
+
 </th:block>
+
 
 </html>

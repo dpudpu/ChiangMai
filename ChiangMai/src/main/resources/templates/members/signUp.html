@@ -1,36 +1,37 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>회원가입</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/css/bootstrap.css">
-</head>
-<body>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/modernizr-2.6.2.min.js"></script>
 
 
-<div class="container">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
-        <div class="jumbotron" style="padding-top: 20px;">
+<th:block layout:fragment="app-content">
 
-            <form method="post" id="signUp" name="signUp" onsubmit="return checkForm()"  th:object="${member}" th:action="@{/members}">
-
-                <h3 style="text-align: center;">회원가입 화면</h3>
-                <div class="form-group">
-                    <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="30">
-                </div>
-                <div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div style="margin-top: 30%;">
+                <form class="fh5co-form animate-box" method="post" th:object="${member}" th:action="@{/members}">
+                    <h2>회원가입</h2>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="닉네임" name="nickname" maxlength="20">
+                        <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="30"
+                               th:autofocus="autofocus" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="닉네임" name="nickname" maxlength="20"
+                               required>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="비밀번호" name="password"
-                               maxlength="20">
+                               maxlength="20" required>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="비밀번호확인" name="passwordCheck"
-                               maxlength="20">
+                               maxlength="20" required>
                         <div id="checkPwd"></div>
                     </div>
                     <div class="form-group">
@@ -38,22 +39,25 @@
                         <label><input type="radio" value="male" name="gender"> 여자</label>
                         <label><input type="radio" value="other" name="gender"> 기타</label>
                     </div>
-                    <div>
-                        <input type="submit" class="btn btn-primary form-control" value="회원가입">
-                    </div>
-                    <div>
-                        <input type="button" onclick="location.href='/'" class="btn btn-default form-control"
-                               value="취소">
-                    </div>
-            </form>
 
+
+                    <div class="form-group">
+                        <input type="submit" value="회원가입" class="btn btn-primary">
+                        <input type="button" onclick="location.href='/'" value="취소" class="btn btn-default">
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 60px; clear: both;">
+            <div class="col-md-12 text-center">
+                <p>
+                    <small>&copy; All Rights Reserved. Designed by <a href="https://freehtml5.co">FreeHTML5.co</a>
+                    </small>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 
-
-<script src="/js/bootstrap.js"></script>
-<script type="text/javascript" src="httpRequest.js"></script>
-
-</body>
+</th:block>
 </html>
