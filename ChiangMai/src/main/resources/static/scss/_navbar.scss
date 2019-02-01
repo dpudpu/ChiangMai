@@ -15,6 +15,10 @@
     }
   }
   .navbar-nav {
+    .current-menu-item a {
+      background-color: #FFF; // 원하는 배경색
+      color: #1F6684; // 원하는 글자색
+    }
     > li.nav-item {
        > a.nav-link,
       > a.nav-link:focus {
