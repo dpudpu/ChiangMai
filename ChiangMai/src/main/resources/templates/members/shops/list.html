@@ -4,19 +4,26 @@
       layout:decorate="~{layouts/main}">
 
 <section layout:fragment="app-content">
-    <form method="GET" th:action="@{/shops}">
-        <h3>타입</h3><br>
-        <label><input type="checkbox" name="types" value="식당">식당</label>
-        <label><input type="checkbox" name="types" value="카페">카페</label>
-        <label><input type="checkbox" name="types" value="마사지">마사지</label>
 
-        <h3>필터</h3>
-        <div th:each="filter : ${filters}">
-            <label th:value="filter"><input type="checkbox" name="filters" th:value="${filter}"></label>
-        </div>
+    <div id="panel" style="display: none">
+        <form method="GET" th:action="@{/shops}">
+            <h3>타입</h3><br>
+            <label><input type="checkbox" name="types" value="식당">식당</label>
+            <label><input type="checkbox" name="types" value="카페">카페</label>
+            <label><input type="checkbox" name="types" value="마사지">마사지</label>
 
-        <input type="submit" value="검색">
-    </form>
+            <h3>필터</h3>
+            <div>
+            <tr th:each="filter : ${filters}">
+                <label th:value="filter"><input type="checkbox" name="filters" th:value="${filter.name}">
+                    <th:block th:text="${filter.name}"></th:block></label>
+            </tr>
+            </div>
+            <input type="submit" value="검색">
+        </form>
+    </div>
+    <input id="filterBtn" class="btn btn-primary" type="button" value="필터">
+
 
     <!-- Page Content -->
     <div class="container">
@@ -48,6 +55,31 @@
 
     </div>
     <!-- /.container -->
+
+    <script>
+        $(document).ready(function () {
+            $("#filterBtn").click(function () {
+                $("#panel").slideToggle("slow");
+            });
+        });
+        // function getFilters() {
+        //     $.ajax({
+        //         url: '/shops/filters',
+        //         method: 'GET',
+        //         success: function (data) {
+        //             data.filters
+        //         },
+        //         error: function (data) {
+        //             alert("실패");
+        //         }
+        //     });
+        // }
+        //
+        // function printFilters() {
+        //
+        // }
+    </script>
+
 </section>
 
 

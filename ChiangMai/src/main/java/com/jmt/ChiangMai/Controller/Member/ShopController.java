@@ -1,6 +1,8 @@
 package com.jmt.ChiangMai.controller.member;
 
+import com.jmt.ChiangMai.domain.Filter;
 import com.jmt.ChiangMai.domain.Shop;
+import com.jmt.ChiangMai.service.FilterService;
 import com.jmt.ChiangMai.service.ShopService;
 import com.jmt.ChiangMai.util.FileUploadUtil;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -20,6 +22,7 @@ import java.util.List;
 public class ShopController {
     private final ShopService shopService;
     private final FileUploadUtil fileUploadUtil;
+    private final FilterService filterService;
 
     @GetMapping
     public String getList(@RequestParam(value = "orderType", defaultValue = "rating") String orderType,
@@ -33,6 +36,8 @@ public class ShopController {
         else
             shops = shopService.getShopsByFilters(types, filters, sort);
         model.addAttribute("shops", shops);
+
+        model.addAttribute("filters",filterService.getFilters(null, new Sort(Sort.Direction.DESC, "type")));
         return "/members/shops/list";
     }
 
