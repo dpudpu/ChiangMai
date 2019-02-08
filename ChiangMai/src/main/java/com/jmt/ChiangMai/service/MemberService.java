@@ -11,22 +11,16 @@ public interface MemberService {
 
     void withdrawMember(String email, String password);
 
-    boolean checkNickname(String nickname);
-
-    boolean checkPassword(String password);
-
-    boolean checkEmail(String email);
-
     Member getMember(String email);
 
     Member getMember(Long id);
 
     Member modifyMemberInfo(Member member);
 
-    int modifyMemberRoles(Long id, Long[] roles);
+    boolean checkPassword(String password);
 
-    Page<Member> searchMembers(Pageable pageable);
+    Page<Member> getMembers(Pageable pageable);
 
-    Page<Member> searchMembersByWord(String searchWord, String searchType, Pageable pageable);
+    Page<Member> getMembersByWord(String searchWord, String searchType, Pageable pageable);
 
 }

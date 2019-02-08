@@ -15,37 +15,39 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div style="margin-top: 30%;">
-                <form class="fh5co-form animate-box" method="post" th:object="${member}" th:action="@{/members}">
                     <h2>회원가입</h2>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="30"
-                               th:autofocus="autofocus" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="닉네임" name="nickname" maxlength="20"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="비밀번호" name="password"
-                               maxlength="20" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="비밀번호확인" name="passwordCheck"
-                               maxlength="20" required>
-                        <div id="checkPwd"></div>
-                    </div>
-                    <div class="form-group">
-                        <label><input type="radio" value="female" name="gender" required> 남자</label>
-                        <label><input type="radio" value="male" name="gender"> 여자</label>
-                        <label><input type="radio" value="other" name="gender"> 기타</label>
-                    </div>
+                    <form id="signUp">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="이메일" id="email" name="email"
+                                   th:autofocus="autofocus" autocomplete="email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="닉네임" id="nickname" name="nickname"
+                                   autocomplete="nickname">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="비밀번호" id="password"
+                                   name="password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="비밀번호확인" id="passwordCheck"
+                                   name="passwordCheck">
+                            <div id="checkPwd"></div>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="radio" value="female" name="gender" required> 남자</label>
+                            <label><input type="radio" value="male" name="gender"> 여자</label>
+                            <label><input type="radio" value="other" name="gender"> 기타</label>
+                            <div id="gender"></div>
+                        </div>
 
 
-                    <div class="form-group">
-                        <input type="submit" value="회원가입" class="btn btn-primary">
-                        <input type="button" onclick="location.href='/'" value="취소" class="btn btn-default">
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <input type="button" value="회원가입" onclick="formSubmit()" class="btn btn-primary">
+                            <input type="button" onclick="location.href='/'" value="취소" class="btn btn-default">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -58,6 +60,59 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        function formSubmit() {
+            let params = jQuery("#signUp").serialize();
+
+            let isValid = true;
+
+            let errors = document.querySelectorAll('.error-message');
+            for (let i = 0; i < errors.length; i++)
+                errors[i].innerHTML = '';
+
+            if ($('#password').val() != $('#passwordCheck').val()) {
+                $('#checkPwd').after('<span class="error-message text-muted text-small text-danger">비밀번호가 일치하지 않습니다.</span>');
+                isValid = false;
+            }
+
+            if (isValid) {
+                $.ajax({
+                    url: '/members',
+                    method: 'POST',
+                    data: params,
+                    success: function (response) {
+                        alert("회원가입 성공");
+                        location.href = "/session";
+                    },
+                    error: function (response) {
+                        markingErrorField(response);
+                    }
+                });
+            }
+        };
+
+        let markingErrorField = function (response) {
+            const errorFields = response.responseJSON.errors;
+            if (!errorFields) {
+                alert(response.response.message);
+                return;
+            }
+
+            let $field, error;
+            for (let i = 0, length = errorFields.length; i < length; i++) {
+                error = errorFields[i];
+                $field = $('#' + error['field']);
+
+                if ($field && $field.length > 0) {
+                    $field.siblings('.error-message').remove();
+                    $field.after('<span class="error-message text-muted text-small text-danger">' + error.defaultMessage + '</span>');
+                }
+            }
+            ;
+        };
+    </script>
 
 </th:block>
 </html>

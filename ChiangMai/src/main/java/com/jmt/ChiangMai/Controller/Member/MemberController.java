@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/members")
@@ -22,11 +23,9 @@ public class MemberController {
     }
 
     @PostMapping
-    public String signUp(@ModelAttribute Member member) {
-        if (memberService.signUp(member) != null)
-            return "redirect:/session";
-        else//TODO 회원가입 실패시 에러 처리
-            return "/error";
+    @ResponseBody
+    public Member signUp(@Valid @ModelAttribute Member member) {
+        return memberService.signUp(member);
     }
 
     @GetMapping("/{memberId}")
@@ -37,11 +36,12 @@ public class MemberController {
     }
 
     @GetMapping("/modify/{memberId}")
-    public String modifyInnfo(@PathVariable Long id, Model model){
+    public String modifyInnfo(@PathVariable Long id, Model model) {
         // TODO view 만들기
         model.addAttribute(memberService.getMember(id));
         return null;
     }
+
     @PutMapping("/{memberId}")
     public String modify(@PathVariable Member member) {
         // TODO form 작성, 마무리하기

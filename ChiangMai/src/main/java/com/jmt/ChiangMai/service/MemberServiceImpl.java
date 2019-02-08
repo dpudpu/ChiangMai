@@ -2,6 +2,7 @@ package com.jmt.ChiangMai.service;
 
 import com.jmt.ChiangMai.domain.Member;
 import com.jmt.ChiangMai.domain.Role;
+import com.jmt.ChiangMai.exception.ValidCustomException;
 import com.jmt.ChiangMai.repository.MemberRepository;
 import com.jmt.ChiangMai.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public Member signUp(Member member) {
+        verifyDuplicateEmail(member.getEmail());
+        verifyDuplicateNickname(member.getNickname());
+
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
 
         Member memberInfo = memberRepository.save(member);
@@ -33,6 +37,18 @@ public class MemberServiceImpl implements MemberService {
         memberInfo.setRoles(roles);
 
         return memberInfo;
+    }
+
+    private void verifyDuplicateEmail(String email) {
+        if (memberRepository.existsMemberByEmail(email)) {
+            throw new ValidCustomException("이미 사용중인 이메일주소입니다", "email");
+        }
+    }
+
+    private void verifyDuplicateNickname(String nickname) {
+        if (memberRepository.existsMemberByNickname(nickname)) {
+            throw new ValidCustomException("이미 사용중인 닉네임입니다", "nickname");
+        }
     }
 
     @Override
@@ -51,18 +67,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean checkNickname(String nickname) {
-        return memberRepository.existsMemberByNickname(nickname);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public boolean checkEmail(String email) {
-        return memberRepository.existsMemberByEmail(email);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public boolean checkPassword(String password) {
         return memberRepository.existsMemberByPassword(password);
     }
@@ -71,25 +75,19 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Member modifyMemberInfo(Member member) {
         Member memberId = memberRepository.getOne(member.getId());
-        BeanUtils.copyProperties(member,memberId);
+        BeanUtils.copyProperties(member, memberId);
         return memberId;
     }
 
     @Override
-    @Transactional
-    public int modifyMemberRoles(Long id, Long[] roles) {
-        return 0;
-    }
-
-    @Override
     @Transactional(readOnly = true)
-    public Page<Member> searchMembers(Pageable pageable) {
+    public Page<Member> getMembers(Pageable pageable) {
         return memberRepository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Member> searchMembersByWord(String searchWord, String searchType, Pageable pageable) {
+    public Page<Member> getMembersByWord(String searchWord, String searchType, Pageable pageable) {
         Page<Member> members = null;
         switch (searchType) {
             case "email":
@@ -104,13 +102,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    public Member getMember(String email){
+    public Member getMember(String email) {
         return memberRepository.findByEmail(email);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Member getMember(Long id){
+    public Member getMember(Long id) {
         return memberRepository.getOne(id);
     }
 }
