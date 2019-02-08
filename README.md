@@ -13,7 +13,6 @@
 - SpringBoot 2.1.0
 - JPA
 - Spring Security
-- React
 - Thymeleaf
 - Bootstrap
 - MySQL
