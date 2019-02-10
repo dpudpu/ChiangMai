@@ -12,4 +12,6 @@ import java.util.List;
 public interface FilterRepository extends JpaRepository<Filter, Long> {
     @Query(value = "SELECT f FROM Filter f WHERE type IN :types")
     List<Filter> findByTypes(@Param("types") List<String> types, Sort sort);
+
+    List<Filter> findAllByOrderByType();
 }

@@ -6,14 +6,13 @@
         <div id="panel" style="display: none;  background-color: #f05f40">
             <form method="GET" th:action="@{/shops}">
                 <h3>타입</h3>
-                <label><input type="checkbox" name="types" value="식당">식당</label>
-                <label><input type="checkbox" name="types" value="카페">카페</label>
-                <label><input type="checkbox" name="types" value="마사지">마사지</label>
-
+                    <label><input type="checkbox" name="types" value="식당" th:checked="${#lists.contains(types, '식당')}">식당</label>
+                    <label><input type="checkbox" name="types" value="카페" th:checked="${#lists.contains(types, '카페')}">카페</label>
+                    <label><input type="checkbox" name="types" value="마사지"th:checked="${#lists.contains(types, '마사지')}">마사지</label>
                 <h3>필터</h3>
                 <div>
                     <tr th:each="filter : ${filters}">
-                        <label th:value="filter"><input type="checkbox" name="filters" th:value="${filter.name}">
+                        <label th:value="filter"><input type="checkbox" name="filters" th:value="${filter.name}" th:checked="${filter.checked}">
                             <th:block th:text="${filter.name}"></th:block>
                         </label>
                     </tr>

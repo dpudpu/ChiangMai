@@ -1,12 +1,14 @@
 package com.jmt.ChiangMai.service;
 
 import com.jmt.ChiangMai.domain.Filter;
+import com.jmt.ChiangMai.dto.FilterDto;
 import com.jmt.ChiangMai.repository.FilterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,15 +18,27 @@ public class FilterServiceImpl implements FilterService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Filter> getFilters(List<String> types, Sort sort) {
-        List<Filter> filters;
-        if (types == null)
-            filters = filterRepository.findAll(sort);
-        else {
-            types.add("모두");
-            filters = filterRepository.findByTypes(types, sort);
+    public List<Filter> getFilters() {
+        return filterRepository.findAllByOrderByType();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<FilterDto> getFiltersDto(List<String> filters) {
+        List<FilterDto> filterDtos = new ArrayList<>();
+        List<Filter> filtersOrigin = filterRepository.findAllByOrderByType();
+
+        //TODO 체크박스 checked 상태값 유지 하려고 Dto 만들었는데 복잡한건 아닐까?? 확인
+        for (Filter origin : filtersOrigin) {
+            FilterDto target = new FilterDto();
+            BeanUtils.copyProperties(origin, target);
+            if (filters != null)
+                target.setChecked(filters.contains(target.getName()));
+            filterDtos.add(target);
         }
-        return filters;
+
+
+        return filterDtos;
     }
 
     @Override

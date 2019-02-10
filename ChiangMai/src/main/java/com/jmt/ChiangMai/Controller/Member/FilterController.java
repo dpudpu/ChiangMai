@@ -24,8 +24,7 @@ public class FilterController {
     public String getList(@RequestParam(value = "types", required = false) List<String> types,
                           Model model) {
 
-        Sort sort = new Sort(Sort.Direction.DESC, "type");
-        List<Filter> filters = filterService.getFilters(null, sort);
+        List<Filter> filters = filterService.getFilters();
 
         model.addAttribute("filters", filters);
 
