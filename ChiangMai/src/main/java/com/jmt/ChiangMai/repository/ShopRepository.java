@@ -1,6 +1,7 @@
 package com.jmt.ChiangMai.repository;
 
 import com.jmt.ChiangMai.domain.Shop;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,15 +13,18 @@ import java.util.List;
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
     @Query(value = "SELECT s FROM Shop s WHERE type IN :types")
-    List<Shop> findByTypes(@Param("types") List types, Sort sort);
+    Page<Shop> findByTypes(@Param("types") List types, Pageable pageable);
+
+    @Query(value = "SELECT s FROM Shop s WHERE type IN :types")
+    List<Shop> findByTypes(@Param("types") List types);
 
     @Query(value = " SELECT DISTINCT s FROM Shop s LEFT JOIN s.filters f WHERE f.name IN :filters")
-    List<Shop> findByFilters(@Param("filters") List filters, Sort sort);
+    Page<Shop> findByFilters(@Param("filters") List filters, Pageable pageable);
 
-    List<Shop> findByAddressContaining(String address);
+    Page<Shop> findByAddressContaining(String address, Pageable pageable);
 
     @Query(value = "SELECT s FROM Shop s WHERE s.open < :time AND s.close > :time ")
-    List<Shop> findByOpenAfterAndCloseBefore(@Param("time") Long time);
+    Page<Shop> findByOpenAfterAndCloseBefore(@Param("time") Long time, Pageable pageable);
 
     /*
     SELECT DISTINCT s.id, s.name ,s.type, f.name
@@ -31,5 +35,5 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     WHERE s.type IN("식당","마사지") AND f.name IN("일식");
      */
     @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN s.filters f WHERE s.type IN :types AND f.name IN :filters")
-    List<Shop> findByTypesAndFilters(@Param("types") List types, @Param("filters") List filters, Sort sort);
+    Page<Shop> findByTypesAndFilters(@Param("types") List types, @Param("filters") List filters, Pageable pageable);
 }
