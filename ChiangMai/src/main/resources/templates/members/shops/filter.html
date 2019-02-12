@@ -6,12 +6,13 @@
     <form method="GET" th:action="@{/shops}">
         <div style="position:fixed; z-index:2000; top:20px; right: 0; ">
             <th:block th:if="${map_toggle}">
-                <button type="submit" name="map_toggle" th:value="false">게시글</button>
+                <button type="submit" onclick="changeView(false); return true;">게시글</button>
             </th:block>
             <th:block th:unless="${map_toggle}">
-                <button type="submit" name="map_toggle" th:value="true">Map</button>
+                <button type="submit" onclick="changeView(true); return true;">Map</button>
             </th:block>
         </div>
+        <input type="hidden" id="map_toggle" name="map_toggle" th:value="${map_toggle}">
 
         <div style="position:fixed; z-index: 1030; right: 0px; top:100px;">
             <div id="panel" style="display: none; background-color: #f05f40">
@@ -38,6 +39,10 @@
     </form>
 
     <script>
+        function changeView(toggle){
+          document.getElementById("map_toggle").value=toggle;
+        }
+
         $(document).ready(function () {
             $("#filterBtn").click(function () {
                 $("#panel").slideToggle("slow");
