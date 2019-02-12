@@ -11,7 +11,6 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 public class ShopImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

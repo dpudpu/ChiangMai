@@ -1,6 +1,8 @@
 package com.jmt.ChiangMai.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,13 +37,16 @@ public class Review {
 
     @OneToMany
     @JoinColumn(name = "review_id")
-    private Set<ShopImage> shopImages;
+    @JsonManagedReference
+    private Set<ReviewImage> reviewImages;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="shop_id", nullable = false)
+    @JsonBackReference
     private Shop shop;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
+    @JsonBackReference
     private Member member;
 }

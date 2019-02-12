@@ -1,5 +1,8 @@
 package com.jmt.ChiangMai.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +32,12 @@ public class Shop {
 
     @Column(nullable = false)
     private String address;
+
+//    @Column(nullable = false)
+//    private String lat;
+//
+//    @Column(nullable = false)
+//    private String lng;
 
     @Column
     private Long open;
@@ -54,20 +62,26 @@ public class Shop {
     @Column(nullable = false, columnDefinition = "int default 0")
     private int hit;
 
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonManagedReference
     private Member member;
 
     @OneToMany(mappedBy = "shop")
+    @JsonManagedReference
+    @JsonIgnore
     private Set<Review> reviews;
 
     @ManyToMany
     @JoinTable(name = "shop_filter",
             joinColumns = @JoinColumn(name = "shop_id"),
             inverseJoinColumns = @JoinColumn(name = "filter_id"))
+    @JsonBackReference
     private Set<Filter> filters;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
+    @JsonManagedReference
+    @JsonIgnore
     private Set<ShopImage> shopImages;
 }

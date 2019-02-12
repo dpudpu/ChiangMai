@@ -11,7 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 public class Filter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
