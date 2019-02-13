@@ -33,11 +33,11 @@ public class Shop {
     @Column(nullable = false)
     private String address;
 
-//    @Column(nullable = false)
-//    private String lat;
-//
-//    @Column(nullable = false)
-//    private String lng;
+    @Column(nullable = false)
+    private Double lat;
+
+    @Column(nullable = false)
+    private Double lng;
 
     @Column
     private Long open;
@@ -60,7 +60,7 @@ public class Shop {
     private Date updateDate;
 
     @Column(nullable = false, columnDefinition = "int default 0")
-    private int hit;
+    private int reviewTotal;
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "member_id")
