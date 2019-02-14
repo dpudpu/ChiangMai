@@ -16,8 +16,8 @@ public class ShopDto {
     private String type;
     private String name;
     private String address;
-    private String lat;
-    private String lng;
+    private Double lat;
+    private Double lng;
     private Long open;
     private Long close;
     private String content;
