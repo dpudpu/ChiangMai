@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+
+<section layout:fragment="app-content">
+
+    <th:block th:include="members/shops/filter :: filter"></th:block>
+
+    <style>
+        #map {
+            height: 600px; /* The height is 400 pixels */
+            width: 100%; /* The width is the width of the web page */
+        }
+    </style>
+
+    <div id="map" style="top:-70px"></div>
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let shops = [[${shops}]].content;
+        console.log(shops);
+
+        // Initialize and add the map
+        function initMap() {
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 14, center: {lat: 18.791664, lng: 98.984523}});
+
+            //Create and open InfoWindow.
+            var infoWindow = new google.maps.InfoWindow();
+
+            const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            let markers = shops.map(function (shop, i) {
+                let marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(shop.lat, shop.lng),
+                    label: labels[i % labels.length],
+                });
+
+                marker.addListener('click', function() {
+                    // window.location="/shops/"+shop.id;
+                    // map.setCenter(marker.getPosition());
+                    $.ajax({
+                        url: '/shops/'+shop.id,
+                        method: 'GET',
+                        success: function (response) {
+                            console.log(response);
+                            alert(" 성공");
+                        },
+                        error: function (response) {
+                            console.log(response);
+                            alert("실패");
+                        }
+                    });
+                });
+
+                return marker;
+            });
+
+            // markers(function (marker, i) {
+            //     return new google.maps.addListener(marker, "click", function(){
+            //         map.setZoom(8);
+            //     });
+            // });
+
+            // markers.addListener('click', function() {
+            //     map.setZoom(8);
+            //     map.setCenter(marker.getPosition());
+            // });
+
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            /*]]>*/
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3z7CUrUC7YG9JYcnhsUWmYaGr_OGUEPc&callback=initMap">
+    </script>
+
+
+</section>
+
+
+</html>
