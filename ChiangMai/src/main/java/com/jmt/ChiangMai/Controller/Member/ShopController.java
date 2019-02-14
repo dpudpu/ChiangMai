@@ -1,6 +1,8 @@
 package com.jmt.ChiangMai.controller.member;
 
 import com.jmt.ChiangMai.domain.Shop;
+import com.jmt.ChiangMai.dto.FilterDto;
+import com.jmt.ChiangMai.dto.ShopDto;
 import com.jmt.ChiangMai.service.FilterService;
 import com.jmt.ChiangMai.service.ShopService;
 import com.jmt.ChiangMai.util.FileUploadUtil;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -33,11 +34,9 @@ public class ShopController {
                           @RequestParam(value = "types", required = false) List<String> types,
                           @RequestParam(value = "map_toggle", defaultValue = "false") Boolean mapToggle,
                           Model model) {
-        Page<Shop> shops;
+        Page<ShopDto> shops;
         Pageable pageable;
         String viewName;
-
-        System.out.println(mapToggle);
 
         if (mapToggle) {
             pageable = Pageable.unpaged();
@@ -47,6 +46,9 @@ public class ShopController {
             pageable = PageRequest.of(0, 2000, Sort.Direction.DESC, orderType);
             viewName = "/members/shops/list";
         }
+
+        //TODO Filter 최초만 검색하게 수정
+//        List<String> filterNames = new ArrayList<>();
 
         shops = shopService.getShops(types, filters, pageable);
 
@@ -61,6 +63,13 @@ public class ShopController {
         model.addAttribute("filters", filterService.getFiltersDto(filters));
 
         return viewName;
+    }
+
+    @GetMapping("/{shopId}")
+    @ResponseBody
+    public Shop getDetail(@PathVariable Long shopId, Model model){
+        Shop shop = shopService.getOne(shopId);
+        return shop;
     }
 
     // 글쓰기는 회원만 가능하게 시큐리티에 설정 하려고 /edit 추가

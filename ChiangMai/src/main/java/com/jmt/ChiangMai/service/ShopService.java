@@ -11,6 +11,8 @@ public interface ShopService {
 
     Page<ShopDto> getShops(List<String> types, List<String> filters, Pageable pageable);
 
+    Shop getOne(Long id);
+
     void delete(Long id);
 
     Shop modify(Shop shop);
