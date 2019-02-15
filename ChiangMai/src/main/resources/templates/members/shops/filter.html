@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="filter">
 
@@ -38,6 +39,10 @@
             </div>
             <!--panel-->
             <input id="filterBtn" class="btn btn-primary" type="button" style="float:right" value="필터">
+
+            <div sec:authorize="hasRole('USER')">
+            <input class="btn btn-primary" type="button" onclick="location.href='/shops/edit'"; style="float:right" value="글쓰기">
+            </div>
         </div>
     </form>
 

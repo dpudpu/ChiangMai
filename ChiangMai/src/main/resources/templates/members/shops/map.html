@@ -28,7 +28,7 @@
         // Initialize and add the map
         function initMap() {
             var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 14, center: {lat: 18.791664, lng: 98.984523}});
+                document.getElementById('map'), {zoom: 15, center: {lat: 18.791664, lng: 98.984523}});
 
             //Create and open InfoWindow.
             var infoWindow = new google.maps.InfoWindow();
@@ -37,17 +37,15 @@
             let markers = shops.map(function (shop, i) {
                 const iconImg = {
                     url: '/img/map-'+shop.type+'.png',
-                    // This marker is 20 pixels wide by 32 pixels high.
-                    size: new google.maps.Size(20, 32),
-                    // The origin for this image is (0, 0).
-                    origin: new google.maps.Point(0, 0),
-                    // The anchor for this image is the base of the flagpole at (0, 32).
-                    anchor: new google.maps.Point(0, 32)
+                    // size: new google.maps.Size(20, 32),
+                    // origin: new google.maps.Point(0, 0),
+                    // anchor: new google.maps.Point(0, 32)
                 };
 
                 let marker = new google.maps.Marker({
                     position: new google.maps.LatLng(shop.lat, shop.lng),
                     icon: iconImg,
+                    map: map
                 });
 
                 marker.addListener('click', function() {
@@ -64,12 +62,11 @@
                         }
                     });
                 });
-
                 return marker;
             });
 
-            var markerCluster = new MarkerClusterer(map, markers,
-                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            // var markerCluster = new MarkerClusterer(map, markers,
+            //     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
             /*]]>*/
 
         }

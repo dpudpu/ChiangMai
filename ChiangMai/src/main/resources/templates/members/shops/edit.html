@@ -6,16 +6,19 @@
 </head>
 <body>
 
-<form method="POST" name="shop" th:action="@{/shops/edit}"  enctype="multipart/form-data">
+<form method="POST" name="shop" th:action="@{/shops/edit}" enctype="multipart/form-data">
     <input type="hidden" name="memberId" th:value="${#authentication.principal.id}">
 
     name <input type="text" placeholder="Google restaurant" name="name" required><br>
     address <input type="text" name="address" required> <br>
     type <select name="type"> <br>
-    <option value="restaurant">restaurant</option>
-    <option value="cafe">cafe</option>
-    <option value="massage">massage</option>
-        </select> <br>
+    <option value="식당">식당</option>
+    <option value="카페">카페</option>
+    <option value="마사지">마사지</option>
+    <option value="펍">펍</option>
+    </select> <br>
+    lat <input type="text" name="lat"> <br>
+    lng <input type="text" name="lng"> <br>
     phone <input type="tel" name="phone"> <br>
     open <input type="number" name="open" min="0" max="24"> <br>
     close <input type="number" name="close" min="0" max="24"> <br>

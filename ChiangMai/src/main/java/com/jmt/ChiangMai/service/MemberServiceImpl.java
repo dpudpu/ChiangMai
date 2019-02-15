@@ -109,6 +109,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(readOnly = true)
     public Member getMember(Long id) {
-        return memberRepository.getOne(id);
+        return memberRepository.getMemberById(id);
     }
 }
