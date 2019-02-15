@@ -23,7 +23,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review add(Review review) {
         Review reviewInfo = reviewRepository.save(review);
-        reviewInfo.setShopImages(review.getShopImages());
+        reviewInfo.setReviewImages(review.getReviewImages());
         return reviewInfo;
     }
 

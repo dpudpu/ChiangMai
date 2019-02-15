@@ -87,7 +87,7 @@ public class ShopController {
 
         if (!images[0].isEmpty()) {
             for (MultipartFile image : images)
-                shop.getShopImages().add(fileUploadUtil.uploadFile(image));
+                shop.getShopImages().add(fileUploadUtil.uploadShopImage(image));
         }
         shopService.add(shop, memberId);
 

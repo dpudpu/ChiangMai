@@ -26,11 +26,11 @@ public class ReviewController {
     @PostMapping
     public String add(@ModelAttribute Review review, @RequestParam("images")MultipartFile[] images){
         //TODO 글쓴이, shop_id 추가하기
-        review.setShopImages(new HashSet<>());
+        review.setReviewImages(new HashSet<>());
 
         if (!images[0].isEmpty()) {
             for (MultipartFile image : images)
-                review.getShopImages().add(fileUploadUtil.uploadFile(image));
+                review.getReviewImages().add(fileUploadUtil.uploadReviewImage(image));
         }
 
         review = reviewService.add(review);
