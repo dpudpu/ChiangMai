@@ -21,7 +21,10 @@
                               th:checked="${#lists.contains(types, '식당')}">식당</label>
                 <label><input type="checkbox" name="types" value="카페"
                               th:checked="${#lists.contains(types, '카페')}">카페</label>
+                <label><input type="checkbox" name="types" value="펍"
+                              th:checked="${#lists.contains(types, '펍')}">펍</label>
                 <label><input type="checkbox" name="types" value="마사지" th:checked="${#lists.contains(types, '마사지')}">마사지</label>
+
                 <h3>필터</h3>
                 <div>
                     <tr th:each="filter : ${filters}">
