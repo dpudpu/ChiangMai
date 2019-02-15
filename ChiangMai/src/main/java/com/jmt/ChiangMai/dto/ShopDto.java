@@ -23,5 +23,5 @@ public class ShopDto {
     private String content;
     private Double rating;
     private Double reviewTotal;
-    private ShopImage shopImages;
+    private ShopImage shopImage;
 }

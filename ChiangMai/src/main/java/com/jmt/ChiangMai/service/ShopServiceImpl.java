@@ -41,7 +41,8 @@ public class ShopServiceImpl implements ShopService {
         for (Shop origin : shops) {
             ShopDto target = new ShopDto();
             BeanUtils.copyProperties(origin, target);
-            if (pageable != null) {// TODO list용 대표 이미지 저장
+            if (pageable != null && origin.getShopImages().iterator().hasNext()) {// TODO list용 대표 이미지 저장
+                target.setShopImage(origin.getShopImages().iterator().next());
             }
             shopDtos.add(target);
         }
