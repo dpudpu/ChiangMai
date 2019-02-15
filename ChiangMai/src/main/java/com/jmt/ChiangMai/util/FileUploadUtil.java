@@ -24,7 +24,7 @@ public class FileUploadUtil {
     private String originalName;
     private String uuidStr;
     private String savedName;
-    private String savedPath
+    private String savedPath;
 
     // TODO ShopImage에 종속적이지 않게 리턴 타입 변경해주기.
     public ShopImage uploadShopImage(MultipartFile file) {
