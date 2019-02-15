@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="detail">
+
+    <div class="container">
+        <div id="detailPanel" style="display:none;">
+            <div class="myDetail">
+                <div style="width:100%; height: 230px">
+                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                </div>
+                <div style="background-color: #f05f40; height: 150px; color:white">
+                    <h2 id="name"/>
+                    <p id="rating"/>
+                    <p id="content"/>
+                    <p id="type"/>
+                </div>
+                주소 : <p id="address"/>
+            </div>
+            <button id="detailBtn" class="widget-pane-toggle-button"> <</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#detailBtn").click(function () {
+                $("#detailPanel").animate({
+                    width: "toggle"
+                });
+            });
+        });
+
+
+        function showDetail(shop) {
+            document.getElementById("detailPanel").style.display = "block";
+
+            console.log(shop.name);
+            document.getElementById("name").innerHTML = shop.name;
+            document.getElementById("address").innerHTML = shop.address;
+            document.getElementById("content").innerHTML = shop.content;
+            document.getElementById("type").innerHTML = shop.type;
+        }
+    </script>
+
+</th:block>
+</html>

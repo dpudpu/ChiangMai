@@ -3,18 +3,21 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/main}">
 
-<section layout:fragment="app-content">
+<section layout:fragment="app-content" style="padding: 0">
+    <link href="css/shop.css" rel="stylesheet">
 
     <th:block th:include="members/shops/filter :: filter"></th:block>
+    <th:block th:include="members/shops/detail :: detail"></th:block>
 
     <style>
         #map {
-            height: 600px; /* The height is 400 pixels */
+            position: fixed !important;
+            height: 100%; /* The height is 400 pixels */
             width: 100%; /* The width is the width of the web page */
         }
     </style>
 
-    <div id="map" style="top:-70px"></div>
+    <div id="map"></div>
 
 
     <script th:inline="javascript">
@@ -30,12 +33,21 @@
             //Create and open InfoWindow.
             var infoWindow = new google.maps.InfoWindow();
 
-            const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
             let markers = shops.map(function (shop, i) {
+                const iconImg = {
+                    url: '/img/map-'+shop.type+'.png',
+                    // This marker is 20 pixels wide by 32 pixels high.
+                    size: new google.maps.Size(20, 32),
+                    // The origin for this image is (0, 0).
+                    origin: new google.maps.Point(0, 0),
+                    // The anchor for this image is the base of the flagpole at (0, 32).
+                    anchor: new google.maps.Point(0, 32)
+                };
+
                 let marker = new google.maps.Marker({
                     position: new google.maps.LatLng(shop.lat, shop.lng),
-                    label: labels[i % labels.length],
+                    icon: iconImg,
                 });
 
                 marker.addListener('click', function() {
@@ -44,13 +56,11 @@
                     $.ajax({
                         url: '/shops/'+shop.id,
                         method: 'GET',
-                        success: function (response) {
-                            console.log(response);
-                            alert(" 성공");
+                        success: function (shop) {
+                            showDetail(shop);
                         },
                         error: function (response) {
-                            console.log(response);
-                            alert("실패");
+                            alert("에러");
                         }
                     });
                 });
@@ -58,20 +68,10 @@
                 return marker;
             });
 
-            // markers(function (marker, i) {
-            //     return new google.maps.addListener(marker, "click", function(){
-            //         map.setZoom(8);
-            //     });
-            // });
-
-            // markers.addListener('click', function() {
-            //     map.setZoom(8);
-            //     map.setCenter(marker.getPosition());
-            // });
-
             var markerCluster = new MarkerClusterer(map, markers,
                 {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
             /*]]>*/
+
         }
     </script>
     <!--Load the API from the specified URL
