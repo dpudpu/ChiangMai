@@ -15,6 +15,7 @@
 - Spring Security
 - Thymeleaf
 - Bootstrap
+- JavaScript
 - MySQL
 - Gradle
 - AWS
