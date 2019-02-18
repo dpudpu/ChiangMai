@@ -32,7 +32,7 @@ public class ShopController {
     public String getList(@RequestParam(value = "orderType", defaultValue = "rating") String orderType,
                           @RequestParam(value = "filters", required = false) List<String> filters,
                           @RequestParam(value = "types", required = false) List<String> types,
-                          @RequestParam(value = "map_toggle", defaultValue = "false") Boolean mapToggle,
+                          @RequestParam(value = "map_toggle", defaultValue = "true") Boolean mapToggle,
                           Model model) {
         Page<ShopDto> shops;
         Pageable pageable;

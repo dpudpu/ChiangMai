@@ -39,6 +39,9 @@ public class Shop {
     @Column(nullable = false)
     private Double lng;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean status;
+
     @Column
     private Long open;
 

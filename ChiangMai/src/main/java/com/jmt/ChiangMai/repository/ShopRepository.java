@@ -11,22 +11,21 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
-    //TODO fetch join
 
-    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages",
-            countQuery = "SELECT COUNT(s) FROM Shop s ")
+    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages WHERE status = true",
+            countQuery = "SELECT COUNT(s) FROM Shop s WHERE status = true")
     Page<Shop> findAll(Pageable pageable);
 
-    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages WHERE type IN :types",
-            countQuery = "SELECT COUNT(s) FROM Shop s WHERE type IN :types")
+    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages WHERE s.type IN :types AND status = true",
+            countQuery = "SELECT COUNT(s) FROM Shop s WHERE s.type IN :types AND status = true")
     Page<Shop> findByTypes(@Param("types") List types, Pageable pageable);
 
-    @Query(value = " SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters f WHERE f.name IN :filters",
-            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.filters f WHERE f.name IN :filters")
+    @Query(value = " SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters f WHERE f.name IN :filters AND status = true",
+            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.filters f WHERE f.name IN :filters AND status = true")
     Page<Shop> findByFilters(@Param("filters") List filters, Pageable pageable);
 
-    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters f WHERE s.type IN :types AND f.name IN :filters",
-            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.filters f  WHERE s.type IN :types AND f.name IN :filters")
+    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters f WHERE s.type IN :types AND f.name IN :filters  AND status = true",
+            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.filters f  WHERE s.type IN :types AND f.name IN :filters AND status = true")
     Page<Shop> findByTypesAndFilters(@Param("types") List types, @Param("filters") List filters, Pageable pageable);
 
     Page<Shop> findByAddressContaining(String address, Pageable pageable);
