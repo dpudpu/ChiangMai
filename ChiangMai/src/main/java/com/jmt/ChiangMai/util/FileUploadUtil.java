@@ -59,7 +59,7 @@ public class FileUploadUtil {
         savedName = uuidStr + originalName;
         savedPath = fileProperties.calcPath();
 
-        File fileObj = new File(savedPath + savedName);
+        File fileObj = new File(savedPath + "/" + savedName);
 
         try {
             FileCopyUtils.copy(file.getBytes(), fileObj);
