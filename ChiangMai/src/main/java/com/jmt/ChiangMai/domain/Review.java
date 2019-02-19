@@ -37,16 +37,13 @@ public class Review {
 
     @OneToMany
     @JoinColumn(name = "review_id")
-    @JsonManagedReference
     private Set<ReviewImage> reviewImages;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="shop_id", nullable = false)
-    @JsonBackReference
     private Shop shop;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
-    @JsonBackReference
     private Member member;
 }

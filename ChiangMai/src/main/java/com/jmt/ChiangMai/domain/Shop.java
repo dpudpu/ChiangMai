@@ -48,11 +48,11 @@ public class Shop {
     @Column
     private Long close;
 
-    @Column
+    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     private String content;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
-    private int rating;
+    @Column(nullable = false, columnDefinition = "float default 0")
+    private float rating;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -67,24 +67,18 @@ public class Shop {
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    @JsonManagedReference
     private Member member;
 
     @OneToMany(mappedBy = "shop")
-    @JsonManagedReference
-    @JsonIgnore
     private Set<Review> reviews;
 
     @ManyToMany
     @JoinTable(name = "shop_filter",
             joinColumns = @JoinColumn(name = "shop_id"),
             inverseJoinColumns = @JoinColumn(name = "filter_id"))
-    @JsonBackReference
     private Set<Filter> filters;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
-    @JsonManagedReference
-    @JsonIgnore
     private Set<ShopImage> shopImages;
 }
