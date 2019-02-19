@@ -3,7 +3,6 @@ package com.jmt.ChiangMai.repository;
 import com.jmt.ChiangMai.domain.Shop;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -38,6 +37,6 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     ON s.id = sf.shop_id AND sf.filter_id = f.id
     WHERE s.type IN("식당","마사지") AND f.name IN("일식");
      */
-    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.reviews LEFT JOIN FETCH s.filters LEFT JOIN FETCH s.member WHERE s.id = :id")
+    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters  WHERE s.id = :id")
     Shop getShopById(@Param("id") Long id);
 }
