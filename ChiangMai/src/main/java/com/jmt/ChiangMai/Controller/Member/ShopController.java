@@ -2,6 +2,7 @@ package com.jmt.ChiangMai.controller.member;
 
 import com.jmt.ChiangMai.domain.Shop;
 import com.jmt.ChiangMai.dto.FilterDto;
+import com.jmt.ChiangMai.dto.ShopDetailDto;
 import com.jmt.ChiangMai.dto.ShopDto;
 import com.jmt.ChiangMai.service.FilterService;
 import com.jmt.ChiangMai.service.ShopService;
@@ -67,8 +68,8 @@ public class ShopController {
 
     @GetMapping("/{shopId}")
     @ResponseBody
-    public Shop getDetail(@PathVariable Long shopId, Model model){
-        Shop shop = shopService.getOne(shopId);
+    public ShopDetailDto getDetail(@PathVariable Long shopId, Model model){
+        ShopDetailDto shop = shopService.getOne(shopId);
         return shop;
     }
 
@@ -90,6 +91,20 @@ public class ShopController {
                 shop.getShopImages().add(fileUploadUtil.uploadShopImage(image));
         }
         shopService.add(shop, memberId);
+
+        return "redirect:/shops";
+    }
+
+    @PutMapping("/edit/{shopId}")
+    public String modify(@ModelAttribute Shop shop,
+                      @RequestParam("images") MultipartFile[] images,
+                      @RequestParam("memberId") Long memberId) {
+        shop.setShopImages(new HashSet<>());
+
+        if (!images[0].isEmpty()) {
+            for (MultipartFile image : images)
+                shop.getShopImages().add(fileUploadUtil.uploadShopImage(image));
+        }
 
         return "redirect:/shops";
     }
