@@ -7,15 +7,23 @@
         <div id="detailPanel" style="display:none;">
             <div class="myDetail">
                 <div style="width:100%; height: 230px">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                    <a href="#"><img id="shopImg" src="" style="width: 100%; height: 100%"></a>
                 </div>
-                <div style="background-color: #f05f40; height: 150px; color:white">
-                    <h2 id="name"/>
-                    <p id="rating"/>
+                <div style="background-color: #f05f40; height: 100px; color:white">
+                    <h4 id="name"></h4>
+                    <div style="font-size: 13px">
+                        <span id="rating"></span>
+                        리뷰 <span id="reviewTotal"></span>개
+
+                        <span id="shopType" style="float: right;"></span>
+                    </div>
+                    <span id="shopFilters"></span>
+                </div>
+                <div>
                     <p id="content"/>
-                    <p id="type"/>
                 </div>
-                주소 : <p id="address"/>
+                주소
+                <p id="address" style="font-size: 12px;"/>
             </div>
             <button id="detailBtn" class="widget-pane-toggle-button"> <</button>
         </div>
@@ -33,12 +41,25 @@
 
         function showDetail(shop) {
             document.getElementById("detailPanel").style.display = "block";
-
-            console.log(shop.name);
             document.getElementById("name").innerHTML = shop.name;
+            document.getElementById("shopType").innerHTML = shop.type;
             document.getElementById("address").innerHTML = shop.address;
             document.getElementById("content").innerHTML = shop.content;
-            document.getElementById("type").innerHTML = shop.type;
+            document.getElementById("rating").innerHTML = shop.rating.toFixed(1);
+            document.getElementById("reviewTotal").innerHTML = shop.reviewTotal;
+            let filters = "";
+            shop.filters.map(function (filter) {
+                filters += '#' + filter.name + ' ';
+            });
+            document.getElementById("shopFilters").innerHTML= filters;
+
+
+            let shopImg = document.getElementById("shopImg");
+            if (shop.shopImage != null)
+                shopImg.src = "/imgFile" + shop.shopImage.path + "/" + shop.shopImage.savedName;
+            else
+                shopImg.src = "http://placehold.it/700x400";
+
         }
     </script>
 

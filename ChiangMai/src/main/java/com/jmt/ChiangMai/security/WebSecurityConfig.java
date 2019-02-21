@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //isFullyAuthenticated() - Returns true if the user is not an anonymous or a remember-me user
         http
                 .authorizeRequests()
-//                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/shops/edit").hasRole("USER")
                     .antMatchers("/**").permitAll()
                     .anyRequest().authenticated()

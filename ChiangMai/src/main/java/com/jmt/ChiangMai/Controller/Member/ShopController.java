@@ -1,9 +1,9 @@
 package com.jmt.ChiangMai.controller.member;
 
 import com.jmt.ChiangMai.domain.Shop;
-import com.jmt.ChiangMai.dto.FilterDto;
 import com.jmt.ChiangMai.dto.ShopDetailDto;
 import com.jmt.ChiangMai.dto.ShopDto;
+import com.jmt.ChiangMai.security.MemberDetails;
 import com.jmt.ChiangMai.service.FilterService;
 import com.jmt.ChiangMai.service.ShopService;
 import com.jmt.ChiangMai.util.FileUploadUtil;
@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,37 +70,49 @@ public class ShopController {
 
     @GetMapping("/{shopId}")
     @ResponseBody
-    public ShopDetailDto getDetail(@PathVariable Long shopId, Model model){
+    public ShopDetailDto getDetail(@PathVariable Long shopId, Model model) {
         ShopDetailDto shop = shopService.getOne(shopId);
         return shop;
     }
 
     // 글쓰기는 회원만 가능하게 시큐리티에 설정 하려고 /edit 추가
     @GetMapping("/edit")
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("filters", filterService.getFilters());
         return "/members/shops/edit";
     }
 
     @PostMapping("/edit")
     public String add(@ModelAttribute Shop shop,
                       @RequestParam("images") MultipartFile[] images,
-                      @RequestParam("memberId") Long memberId) {
-        shop.setShopImages(new HashSet<>());
-        //TODO thumbnail 파일 저장?
+                      @RequestParam("filterNames") List<String> filters) {
 
+        /*
+        관리자가 글을 썼으면 status에 true를 입력해서 목록에 바로 출력이 되지만
+        유저가 글을 쓰면 status에 false를 입력해 대기시킨다.
+         */
+        MemberDetails principal = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long memberId = principal.getId();
+        if (principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")))
+            shop.setStatus(true);
+        else
+            shop.setStatus(false);
+
+        shop.setShopImages(new HashSet<>());
         if (!images[0].isEmpty()) {
             for (MultipartFile image : images)
                 shop.getShopImages().add(fileUploadUtil.uploadShopImage(image));
         }
-        shopService.add(shop, memberId);
+        shopService.add(shop, memberId, filters);
 
         return "redirect:/shops";
     }
 
     @PutMapping("/edit/{shopId}")
     public String modify(@ModelAttribute Shop shop,
-                      @RequestParam("images") MultipartFile[] images,
-                      @RequestParam("memberId") Long memberId) {
+                         @RequestParam("images") MultipartFile[] images,
+                         @RequestParam("memberId") Long memberId) {
+        System.out.println(shop.getLat());
         shop.setShopImages(new HashSet<>());
 
         if (!images[0].isEmpty()) {
