@@ -4,6 +4,7 @@ import com.jmt.ChiangMai.domain.Shop;
 import com.jmt.ChiangMai.domain.enums.PageSize;
 import com.jmt.ChiangMai.dto.ShopDetailDto;
 import com.jmt.ChiangMai.dto.ShopDto;
+import com.jmt.ChiangMai.repository.FilterRepository;
 import com.jmt.ChiangMai.repository.MemberRepository;
 import com.jmt.ChiangMai.repository.ReviewRepository;
 import com.jmt.ChiangMai.repository.ShopRepository;
@@ -23,6 +24,7 @@ public class ShopServiceImpl implements ShopService {
     private final ShopRepository shopRepository;
     private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
+    private final FilterRepository filterRepository;
 
 
 
@@ -79,7 +81,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public Shop add(Shop shop, Long memberId) {
+    public Shop add(Shop shop, Long memberId, List<String> filters) {
+        shop.setFilters(filterRepository.findByName(filters));
         shop.setMember(memberRepository.getOne(memberId));
         Shop shopInfo = shopRepository.save(shop);
         shopInfo.setShopImages(shopInfo.getShopImages());

@@ -18,5 +18,5 @@ public interface ShopService {
 
     Shop modify(Shop shop);
 
-    Shop add(Shop shop, Long memberId);
+    Shop add(Shop shop, Long memberId, List<String> filters);
 }

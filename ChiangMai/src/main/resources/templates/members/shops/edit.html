@@ -1,36 +1,143 @@
 <!DOCTYPE HTML>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-<form method="POST" name="shop" th:action="@{/shops/edit}" enctype="multipart/form-data">
-    <input type="hidden" name="memberId" th:value="${#authentication.principal.id}">
-
-    name <input type="text" placeholder="Google restaurant" name="name" required><br>
-    address <input type="text" name="address" required> <br>
-    type <select name="type"> <br>
-    <option value="식당">식당</option>
-    <option value="카페">카페</option>
-    <option value="마사지">마사지</option>
-    <option value="펍">펍</option>
-    </select> <br>
-    lat <input type="text" name="lat"> <br>
-    lng <input type="text" name="lng"> <br>
-    phone <input type="tel" name="phone"> <br>
-    open <input type="number" name="open" min="0" max="24"> <br>
-    close <input type="number" name="close" min="0" max="24"> <br>
-    content <textarea maxlength="300" name="content"></textarea> <br>
-
-    images <input id="multipleFileUploadInput" type="file" name="images" class="file-input" multiple/> <br>
-    <input type="submit" value="글쓰기">
-    <input type="button" value="취소" onclick="location.href='/'">
-
-</form>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/main}">
 
 
-</body>
+<th:block layout:fragment="app-content">
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3z7CUrUC7YG9JYcnhsUWmYaGr_OGUEPc">
+    </script>
+
+    <style>
+        .control-label {
+            display: inline-block;
+            max-width: 100%;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+    </style>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-8" style="margin-top:10%;">
+                <h2>가게 등록하기</h2>
+                <form method="POST" name="shop" id="shop" onsubmit="return checkForm()" th:action="@{/shops/edit}"
+                      enctype="multipart/form-data">
+
+                    <!--<input type="hidden" name="memberId" th:value="${#authentication.principal.id}">-->
+                    <!--<div sec:authorize="hasRole('ADMIN')">-->
+                        <!--<input type="hidden" name="status" value="true">-->
+                    <!--</div>-->
+                    <input type="hidden" name="lat" id="lat" value="">
+                    <input type="hidden" name="lng" id="lng" value="">
+
+
+                    <div class="form-group">
+                        <label for="name" class='control-label'>이름(필수)</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="까이양 청더이" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class='control-label'>주소(필수)</label>
+                        <input type="text" class="form-control" id="address" name="address"
+                               placeholder="2/8 Suk Kasame Rd, Tambon Su Thep, Amphoe Mueang Chiang Mai, Chang Wat Chiang Mai 50200 태국"
+                               required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="type" class='control-label'><b>타입(필수)</b></label>
+                        <select class="form" id="type" name="type">
+                            <option value="식당">식당</option>
+                            <option value="카페">카페</option>
+                            <option value="마사지">마사지</option>
+                            <option value="펍">펍</option>
+                        </select>
+                    </div>
+                    <label for="open" class='control-label'>운영시간 : </label>
+                    open <input type="number" id="open" name="open" min="0" max="24"> ~
+                    close <input type="number" name="close" min="0" max="24"> <br>
+                    <div class="form-group">
+                        <label for="phone" class='control-label'>전화번호</label>
+                        <input type="text" placeholder="전화번호" id="phone" name="phone"><br>
+                    </div>
+
+                    <label class='control-label'>필터</label>
+                    <tr th:each="filter : ${filters}">
+                        <label th:value="filter">
+                            <input type="checkbox" name="filterNames" th:value="${filter.name}">
+                            <th:block th:text="${filter.name}"></th:block>
+                        </label>
+                    </tr>
+
+                    <div class="form-group">
+                        <label for="content" class='control-label'>내용</label>
+                        <textarea class="form-control" id="content" name="content" rows="7"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="images">이미지(3MB이하)</label>
+                        <input type="file" id="images" name="images" class="file-input" multiple/>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">글쓰기</button>
+                    <button type="button" value="취소" onclick="location.href='/'" class="btn btn-success">취소</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--</div>-->
+    <script>
+        function checkForm() {
+
+            let images = document.getElementById("images").files;
+
+            let maxSize = 3145728; //3MB
+
+            for (let i = 0; i < images.length; i++) {
+                let ext = images[i].name.slice(images[i].name.lastIndexOf(".") + 1).toLowerCase();
+
+                console.log(images[i]);
+                console.log(ext);
+                console.log(images[i].size);
+
+                if (!(ext == "gif" || ext == "jpg" || ext == "png" || ext == "jpeg")) {
+                    alert("이미지파일 (.jpg, .png, .gif, .jpeg ) 만 업로드 가능합니다.");
+                    return false;
+                }
+                if (images[i].size > maxSize) {
+                    alert("이미지당 3MB 이하만 등록가능합니다.");
+                    return false;
+                }
+            }
+            return getLngLat();
+        }
+
+
+        function getLngLat() {
+            let geocoder = new google.maps.Geocoder();
+            let address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function (results, status) {
+                console.log(results);
+                if (status === google.maps.GeocoderStatus.OK) {
+                    document.shop.lng.value = results[0].geometry.location.lng();
+                    document.shop.lat.value = results[0].geometry.location.lat();
+                    document.shop.submit();
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+            return false;
+        }
+    </script>
+
+</th:block>
+
 </html>
-
