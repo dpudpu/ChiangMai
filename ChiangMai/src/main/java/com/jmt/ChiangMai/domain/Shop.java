@@ -33,10 +33,10 @@ public class Shop {
     @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false)
+    @Column
     private Double lat;
 
-    @Column(nullable = false)
+    @Column
     private Double lng;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
@@ -48,7 +48,8 @@ public class Shop {
     @Column
     private Long close;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
+    @Column
+    @Lob
     private String content;
 
     @Column(nullable = false, columnDefinition = "float default 0")
