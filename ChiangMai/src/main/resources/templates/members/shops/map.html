@@ -23,20 +23,20 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         let shops = [[${shops}]].content;
-        console.log(shops);
 
         // Initialize and add the map
         function initMap() {
-            var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 15, center: {lat: 18.791664, lng: 98.984523}});
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: {lat: 18.791664, lng: 98.984523}
+            });
 
             //Create and open InfoWindow.
             var infoWindow = new google.maps.InfoWindow();
 
-
             let markers = shops.map(function (shop, i) {
                 const iconImg = {
-                    url: '/img/map-'+shop.type+'.png',
+                    url: '/img/map-' + shop.type + '.png',
                     // size: new google.maps.Size(20, 32),
                     // origin: new google.maps.Point(0, 0),
                     // anchor: new google.maps.Point(0, 32)
@@ -48,11 +48,13 @@
                     map: map
                 });
 
-                marker.addListener('click', function() {
-                    // window.location="/shops/"+shop.id;
-                    // map.setCenter(marker.getPosition());
+                marker.addListener('click', function () {
+                    //TODO 클릭한 마커의 아이콘 변경(새로운 마커 클릭시 이전 클릭 아이콘 초기화)
+                    // setMarker();
+                    // marker.setIcon("/img/map-마사지1.png");
+
                     $.ajax({
-                        url: '/shops/'+shop.id,
+                        url: '/shops/' + shop.id,
                         method: 'GET',
                         success: function (shop) {
                             showDetail(shop);
@@ -64,6 +66,7 @@
                 });
                 return marker;
             });
+
 
             // var markerCluster = new MarkerClusterer(map, markers,
             //     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
