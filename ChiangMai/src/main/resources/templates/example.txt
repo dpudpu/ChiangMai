@@ -1,0 +1,1 @@
+사용이 편하도록 application ignore때문에 안올라간 appication.properties 정보를 올린다.
