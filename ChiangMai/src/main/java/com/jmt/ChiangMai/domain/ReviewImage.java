@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name="review_image")
 @Getter
 @Setter
 @NoArgsConstructor

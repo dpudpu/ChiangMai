@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(name="shop_image")
 @Getter
 @Setter
 @NoArgsConstructor

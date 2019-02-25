@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name="member")
 @Getter
 @Setter
 @NoArgsConstructor

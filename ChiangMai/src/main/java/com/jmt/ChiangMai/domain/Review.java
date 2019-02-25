@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name="review")
 @Getter
 @Setter
 @NoArgsConstructor
