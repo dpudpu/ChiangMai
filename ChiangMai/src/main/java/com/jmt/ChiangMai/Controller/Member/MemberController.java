@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/members")
@@ -28,13 +29,14 @@ public class MemberController {
         return memberService.signUp(member);
     }
 
-    @GetMapping("/{memberId}")
-    public String getMemberInfo(@PathVariable Long id) {
+    @GetMapping("/info")
+    public String getMemberInfo(Principal principal) {
         // TODO view
-        Member member = memberService.getMember(id);
+//        Member member = memberService.getMember(id);
         return null;
     }
 
+    //TODO 수정
     @GetMapping("/modify/{memberId}")
     public String modify(@PathVariable Long id, Model model) {
         // TODO view

@@ -70,10 +70,10 @@ public class Shop {
     private Member member;
 
     @ManyToMany
-    @JoinTable(name = "shop_filter",
+    @JoinTable(name = "shop_tag",
             joinColumns = @JoinColumn(name = "shop_id"),
-            inverseJoinColumns = @JoinColumn(name = "filter_id"))
-    private Set<Filter> filters;
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")

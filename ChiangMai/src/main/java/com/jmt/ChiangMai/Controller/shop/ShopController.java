@@ -4,7 +4,7 @@ import com.jmt.ChiangMai.domain.Shop;
 import com.jmt.ChiangMai.dto.ShopDetailDto;
 import com.jmt.ChiangMai.dto.ShopDto;
 import com.jmt.ChiangMai.security.MemberDetails;
-import com.jmt.ChiangMai.service.FilterService;
+import com.jmt.ChiangMai.service.TagService;
 import com.jmt.ChiangMai.service.ShopService;
 import com.jmt.ChiangMai.util.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +29,11 @@ import java.util.List;
 public class ShopController {
     private final ShopService shopService;
     private final FileUploadUtil fileUploadUtil;
-    private final FilterService filterService;
+    private final TagService tagService;
 
     @GetMapping
     public String getList(@RequestParam(value = "orderType", defaultValue = "rating") String orderType,
-                          @RequestParam(value = "filters", required = false) List<String> filters,
+                          @RequestParam(value = "tags", required = false) List<String> tags,
                           @RequestParam(value = "types", required = false) List<String> types,
                           @RequestParam(value = "map_toggle", defaultValue = "true") Boolean mapToggle,
                           Model model) {
@@ -50,12 +50,12 @@ public class ShopController {
             viewName = "/shops/list";
         }
 
-        shops = shopService.getShops(types, filters, pageable);
+        shops = shopService.getShops(types, tags, pageable);
 
         model.addAttribute("types", types == null ? new ArrayList<>() : types);
         model.addAttribute("shops", shops);
         model.addAttribute("map_toggle", mapToggle);
-        model.addAttribute("filters", filterService.getFiltersDto(filters));
+        model.addAttribute("tags", tagService.getTagsDto(tags));
 
         return viewName;
     }
@@ -69,14 +69,14 @@ public class ShopController {
 
     @GetMapping("/edit")
     public String add(Model model) {
-        model.addAttribute("filters", filterService.getFilters());
+        model.addAttribute("tags", tagService.getTags());
         return "/shops/edit";
     }
 
     @PostMapping("/edit")
     public String add(@ModelAttribute Shop shop,
                       @RequestParam("images") MultipartFile[] images,
-                      @RequestParam(value = "filterNames", required = false) List<String> filters) {
+                      @RequestParam(value = "tagNames", required = false) List<String> tags) {
 
         /*
         관리자가 글을 썼으면 status에 true를 입력해서 목록에 바로 출력이 되지만
@@ -95,7 +95,7 @@ public class ShopController {
             for (MultipartFile image : images)
                 shop.getShopImages().add(fileUploadUtil.uploadShopImage(image));
         }
-        shopService.add(shop, memberId, filters);
+        shopService.add(shop, memberId, tags);
 
         return "redirect:/shops";
     }

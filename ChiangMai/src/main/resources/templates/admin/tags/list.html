@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>이름</th>
+        <th>타입</th>
+    </tr>
+    <tr th:each="tag : ${tags}">
+        <td th:text="${tag.id}"></td>
+        <td th:text="${tag.name}"></td>
+        <td th:text="${tag.type}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

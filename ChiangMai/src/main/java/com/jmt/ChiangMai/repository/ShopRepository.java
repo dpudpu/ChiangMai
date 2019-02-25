@@ -19,16 +19,16 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
             countQuery = "SELECT COUNT(s) FROM Shop s WHERE s.type IN :types AND status = true")
     Page<Shop> findByTypes(@Param("types") List types, Pageable pageable);
 
-    @Query(value = " SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters f WHERE f.name IN :filters AND status = true",
-            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.filters f WHERE f.name IN :filters AND status = true")
-    Page<Shop> findByFilters(@Param("filters") List filters, Pageable pageable);
+    @Query(value = " SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.tags f WHERE f.name IN :tags AND status = true",
+            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.tags f WHERE f.name IN :tags AND status = true")
+    Page<Shop> findByTags(@Param("tags") List tags, Pageable pageable);
 
-    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters f WHERE s.type IN :types AND f.name IN :filters  AND status = true",
-            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.filters f  WHERE s.type IN :types AND f.name IN :filters AND status = true")
-    Page<Shop> findByTypesAndFilters(@Param("types") List types, @Param("filters") List filters, Pageable pageable);
+    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.tags f WHERE s.type IN :types AND f.name IN :tags  AND status = true",
+            countQuery = "SELECT COUNT(s) FROM Shop s LEFT JOIN s.tags f  WHERE s.type IN :types AND f.name IN :tags AND status = true")
+    Page<Shop> findByTypesAndTags(@Param("types") List types, @Param("tags") List tags, Pageable pageable);
 
     Page<Shop> findByAddressContaining(String address, Pageable pageable);
 
-    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters  WHERE s.id = :id")
+    @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.tags  WHERE s.id = :id")
     Shop getShopById(@Param("id") Long id);
 }

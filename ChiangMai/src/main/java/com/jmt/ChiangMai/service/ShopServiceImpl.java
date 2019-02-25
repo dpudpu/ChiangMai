@@ -1,10 +1,9 @@
 package com.jmt.ChiangMai.service;
 
 import com.jmt.ChiangMai.domain.Shop;
-import com.jmt.ChiangMai.domain.enums.PageSize;
 import com.jmt.ChiangMai.dto.ShopDetailDto;
 import com.jmt.ChiangMai.dto.ShopDto;
-import com.jmt.ChiangMai.repository.FilterRepository;
+import com.jmt.ChiangMai.repository.TagRepository;
 import com.jmt.ChiangMai.repository.MemberRepository;
 import com.jmt.ChiangMai.repository.ReviewRepository;
 import com.jmt.ChiangMai.repository.ShopRepository;
@@ -16,15 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ShopServiceImpl implements ShopService {
     private final ShopRepository shopRepository;
-    private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
-    private final FilterRepository filterRepository;
+    private final TagRepository tagRepository;
 
 
 
@@ -33,15 +30,15 @@ public class ShopServiceImpl implements ShopService {
     public Page<ShopDto> getShops(List<String> types, List<String> filters, Pageable pageable) {
         Page<Shop> shops;
         List<ShopDto> shopDtos = new ArrayList<>();
-        // 조회를 그냥 네개로 나누지말고 두가지로 하는건 어떨까? (type, filters 전용 조회 없앤다.)
+        // 조회를 그냥 네개로 나누지말고 두가지로 하는건 어떨까? (type, tags 전용 조회 없앤다.)
         if (filters == null && types == null)
             shops = shopRepository.findAll(pageable);
         else if (filters == null)
             shops = shopRepository.findByTypes(types, pageable);
         else if (types == null)
-            shops = shopRepository.findByFilters(filters, pageable);
+            shops = shopRepository.findByTags(filters, pageable);
         else
-            shops = shopRepository.findByTypesAndFilters(types, filters, pageable);
+            shops = shopRepository.findByTypesAndTags(types, filters, pageable);
 
         for (Shop origin : shops) {
             ShopDto target = new ShopDto();
@@ -80,7 +77,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     @Transactional
     public Shop add(Shop shop, Long memberId, List<String> filters) {
-        shop.setFilters(filterRepository.findByName(filters));
+        shop.setTags(tagRepository.findByName(filters));
         shop.setMember(memberRepository.getOne(memberId));
         Shop shopInfo = shopRepository.save(shop);
         shopInfo.setShopImages(shopInfo.getShopImages());

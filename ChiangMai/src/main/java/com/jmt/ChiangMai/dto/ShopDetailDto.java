@@ -1,6 +1,6 @@
 package com.jmt.ChiangMai.dto;
 
-import com.jmt.ChiangMai.domain.Filter;
+import com.jmt.ChiangMai.domain.Tag;
 import com.jmt.ChiangMai.domain.Review;
 import com.jmt.ChiangMai.domain.ShopImage;
 import lombok.AllArgsConstructor;
@@ -29,6 +29,6 @@ public class ShopDetailDto {
     private float rating;
     private int reviewTotal;
     private Page<Review> reviews;
-    private Set<Filter> filters;
+    private Set<Tag> tags;
     private ShopImage shopImage;
 }

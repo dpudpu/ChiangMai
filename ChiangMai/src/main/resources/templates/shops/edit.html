@@ -66,10 +66,10 @@
                     </div>
 
                     <label class='control-label'>필터</label>
-                    <tr th:each="filter : ${filters}">
-                        <label th:value="filter">
-                            <input type="checkbox" name="filterNames" th:value="${filter.name}">
-                            <th:block th:text="${filter.name}"></th:block>
+                    <tr th:each="tag : ${tags}">
+                        <label th:value="tag">
+                            <input type="checkbox" name="tagNames" th:value="${tag.name}">
+                            <th:block th:text="${tag.name}"></th:block>
                         </label>
                     </tr>
 

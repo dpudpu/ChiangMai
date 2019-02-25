@@ -47,11 +47,11 @@
             document.getElementById("content").innerHTML = shop.content;
             document.getElementById("rating").innerHTML = shop.rating.toFixed(1);
             document.getElementById("reviewTotal").innerHTML = shop.reviewTotal;
-            let filters = "";
-            shop.filters.map(function (filter) {
-                filters += '#' + filter.name + ' ';
+            let tags = "";
+            shop.tags.map(function (tag) {
+                tags += '#' + tag.name + ' ';
             });
-            document.getElementById("shopFilters").innerHTML= filters;
+            document.getElementById("shopFilters").innerHTML= tags;
 
 
             let shopImg = document.getElementById("shopImg");

@@ -32,34 +32,24 @@ INSERT INTO shop(name, type, lat, lng, address) VALUES ('Moment'' Notice | Jazz 
 
 
 
+-- Tag
+INSERT INTO tag(type, name) VALUES('식당','일식');
+INSERT INTO tag(type, name) VALUES('식당','한식');
+INSERT INTO tag(type, name) VALUES('식당','양식');
+INSERT INTO tag(type, name) VALUES('모두','가성비');
+INSERT INTO tag(type, name) VALUES('모두','비쌈');
+INSERT INTO tag(type, name) VALUES('모두','저렴');
 
--- INSERT INTO shop(name, address, type) VALUES ('한식집', 'address', '식당');
--- INSERT INTO shop(name, address, type) VALUES ('양식집', 'address', '식당');
--- INSERT INTO shop(name, address, type) VALUES ('피자집', 'address', '식당');
--- INSERT INTO shop(name, address, type) VALUES ('마사지1', 'address', '마사지');
--- INSERT INTO shop(name, address, type) VALUES ('마사지2', 'address', '마사지');
--- INSERT INTO shop(name, address, type) VALUES ('마사지3', 'address', '마사지');
--- INSERT INTO shop(name, address, type) VALUES ('카페2', 'address', '카페');
--- INSERT INTO shop(name, address, type, open, close ) VALUES ('카페3', 'address', '카페',0,20);
-
--- Filter
-INSERT INTO filter(type, name) VALUES('식당','일식');
-INSERT INTO filter(type, name) VALUES('식당','한식');
-INSERT INTO filter(type, name) VALUES('식당','양식');
-INSERT INTO filter(type, name) VALUES('모두','가성비');
-INSERT INTO filter(type, name) VALUES('모두','비쌈');
-INSERT INTO filter(type, name) VALUES('모두','저렴');
-
--- shop_filter
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (1, 1);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (1, 2);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (1, 3);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (1, 4);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (2, 1);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (2, 2);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (3, 1);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (3, 3);
-INSERT INTO shop_filter(shop_id, filter_id) VALUES (4, 4);
+-- shop_tag
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (1, 1);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (1, 2);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (1, 3);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (1, 4);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (2, 1);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (2, 2);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (3, 1);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (3, 3);
+INSERT INTO shop_tag(shop_id, tag_id) VALUES (4, 4);
 
 -- review
 INSERT INTO review(content, rating, shop_id) VALUES ('맛있다.', 5, 1);

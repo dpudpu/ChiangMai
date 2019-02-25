@@ -1,6 +1,6 @@
 //package com.jmt.ChiangMai.service;
 //
-//import com.jmt.ChiangMai.domain.Filter;
+//import com.jmt.ChiangMai.domain.Tag;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,14 @@
 //public class FilterServiceTest {
 //
 //    @Autowired
-//    FilterService filterService;;
+//    TagService filterService;;
 //
 //    @Test
 //    public void 조회(){
 //        Sort sort = new Sort(Sort.Direction.DESC, "type");
-//        List<Filter> filters = filterService.getFilters(null,sort);
+//        List<Tag> tags = filterService.getTags(null,sort);
 //
-//        for (Filter f: filters
+//        for (Tag f: tags
 //             ) {
 //            System.out.println(f.getName()+"/"+f.getType());
 //        }
@@ -36,9 +36,9 @@
 //        Sort sort = new Sort(Sort.Direction.DESC, "type");
 //        List<String> list = new ArrayList<>();
 //        list.add("마사지");
-//        List<Filter> filters = filterService.getFilters(list,sort);
+//        List<Tag> tags = filterService.getTags(list,sort);
 //
-//        for (Filter f: filters
+//        for (Tag f: tags
 //        ) {
 //            System.out.println(f.getName()+"/"+f.getType());
 //        }
