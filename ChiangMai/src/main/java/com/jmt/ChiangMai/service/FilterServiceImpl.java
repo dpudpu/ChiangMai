@@ -28,7 +28,6 @@ public class FilterServiceImpl implements FilterService {
         List<FilterDto> filterDtos = new ArrayList<>();
         List<Filter> filtersOrigin = filterRepository.findAllByOrderByType();
 
-        //TODO 체크박스 checked 상태값 유지 하려고 Dto 만들었는데 복잡한건 아닐까?? 확인
         for (Filter origin : filtersOrigin) {
             FilterDto target = new FilterDto();
             BeanUtils.copyProperties(origin, target);

@@ -1,4 +1,4 @@
-package com.jmt.ChiangMai.controller.member;
+package com.jmt.ChiangMai.controller.shop;
 
 import com.jmt.ChiangMai.domain.Shop;
 import com.jmt.ChiangMai.dto.ShopDetailDto;
@@ -43,26 +43,18 @@ public class ShopController {
 
         if (mapToggle) {
             pageable = Pageable.unpaged();
-            viewName = "/members/shops/map";
+            viewName = "/shops/map";
         } else {
             // TODO 스크롤 검색 구현할 때 page, size 수정하기
             pageable = PageRequest.of(0, 2000, Sort.Direction.DESC, orderType);
-            viewName = "/members/shops/list";
+            viewName = "/shops/list";
         }
-
-        //TODO Filter 최초만 검색하게 수정
-//        List<String> filterNames = new ArrayList<>();
 
         shops = shopService.getShops(types, filters, pageable);
 
-        // 체크박스 checked를 위해서 다시 types를 넘겨주는데 3항연산자 사용하는게 좋을까?
         model.addAttribute("types", types == null ? new ArrayList<>() : types);
-
         model.addAttribute("shops", shops);
-
         model.addAttribute("map_toggle", mapToggle);
-
-        // 최초의 검색만 직접 DB로 조회하고 그 후로는 파라미터로 전달하는 것은 어떨까?
         model.addAttribute("filters", filterService.getFiltersDto(filters));
 
         return viewName;
@@ -70,29 +62,29 @@ public class ShopController {
 
     @GetMapping("/{shopId}")
     @ResponseBody
-    public ShopDetailDto getDetail(@PathVariable Long shopId, Model model) {
+    public ShopDetailDto getDetail(@PathVariable Long shopId) {
         ShopDetailDto shop = shopService.getOne(shopId);
         return shop;
     }
 
-    // 글쓰기는 회원만 가능하게 시큐리티에 설정 하려고 /edit 추가
     @GetMapping("/edit")
     public String add(Model model) {
         model.addAttribute("filters", filterService.getFilters());
-        return "/members/shops/edit";
+        return "/shops/edit";
     }
 
     @PostMapping("/edit")
     public String add(@ModelAttribute Shop shop,
                       @RequestParam("images") MultipartFile[] images,
-                      @RequestParam("filterNames") List<String> filters) {
+                      @RequestParam(value = "filterNames", required = false) List<String> filters) {
 
         /*
         관리자가 글을 썼으면 status에 true를 입력해서 목록에 바로 출력이 되지만
-        유저가 글을 쓰면 status에 false를 입력해 대기시킨다.
+        유저가 글을 쓰면 status에 false를 입력해 관리자가 수락할때까지 대기시킨다.
          */
         MemberDetails principal = (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long memberId = principal.getId();
+
         if (principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")))
             shop.setStatus(true);
         else
@@ -112,7 +104,6 @@ public class ShopController {
     public String modify(@ModelAttribute Shop shop,
                          @RequestParam("images") MultipartFile[] images,
                          @RequestParam("memberId") Long memberId) {
-        System.out.println(shop.getLat());
         shop.setShopImages(new HashSet<>());
 
         if (!images[0].isEmpty()) {

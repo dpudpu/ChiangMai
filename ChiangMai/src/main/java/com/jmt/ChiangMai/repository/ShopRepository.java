@@ -29,14 +29,6 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
 
     Page<Shop> findByAddressContaining(String address, Pageable pageable);
 
-    /*
-    SELECT DISTINCT s.id, s.name ,s.type, f.name
-    FROM shop s
-    INNER JOIN shop_filter sf
-    INNER JOIN filter f
-    ON s.id = sf.shop_id AND sf.filter_id = f.id
-    WHERE s.type IN("식당","마사지") AND f.name IN("일식");
-     */
     @Query(value = "SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.shopImages LEFT JOIN FETCH s.filters  WHERE s.id = :id")
     Shop getShopById(@Param("id") Long id);
 }

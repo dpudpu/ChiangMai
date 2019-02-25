@@ -1,4 +1,4 @@
-package com.jmt.ChiangMai.controller.member;
+package com.jmt.ChiangMai.controller.shop;
 
 
 import com.jmt.ChiangMai.domain.Review;
@@ -20,7 +20,7 @@ public class ReviewController {
 
     @GetMapping
     public String add(){
-        return "members/review/edit";
+        return "/shops/review/edit";
     }
 
     @PostMapping

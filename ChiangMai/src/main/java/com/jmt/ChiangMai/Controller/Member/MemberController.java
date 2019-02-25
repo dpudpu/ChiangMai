@@ -30,21 +30,21 @@ public class MemberController {
 
     @GetMapping("/{memberId}")
     public String getMemberInfo(@PathVariable Long id) {
-        // TODO form 작성, 마무리하기
+        // TODO view
         Member member = memberService.getMember(id);
         return null;
     }
 
     @GetMapping("/modify/{memberId}")
-    public String modifyInnfo(@PathVariable Long id, Model model) {
-        // TODO view 만들기
+    public String modify(@PathVariable Long id, Model model) {
+        // TODO view
         model.addAttribute(memberService.getMember(id));
         return null;
     }
 
     @PutMapping("/{memberId}")
     public String modify(@PathVariable Member member) {
-        // TODO form 작성, 마무리하기
+        // TODO view
         Member memberInfo = memberService.modifyMemberInfo(member);
         return "redirect:/members/" + memberInfo.getId();
     }

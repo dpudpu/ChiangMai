@@ -39,7 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         };
     }
 
-    //TODO 크롬에서는 로컬 저장소에 접근하는걸 보안상 금지한다. 테스트용으로 잠시 등록했지만 추후에 AWS에 파일을 업로드하고 로드할 예정.
+    //TODO 크롬에서는 로컬 저장소에 접근하는걸 보안상 금지한다. 테스트용으로 잠시 등록했지만 추후에 AWS S3에 파일을 업로드할 예정.
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/imgFile/**")
