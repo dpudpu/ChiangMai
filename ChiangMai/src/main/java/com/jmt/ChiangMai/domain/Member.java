@@ -6,9 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -18,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +42,9 @@ public class Member {
     @NotBlank(message = "성별을 선택해주세요.")
     private String gender;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @Column(nullable = false)
-    private Date regdate;
+    private LocalDateTime regdate;
 
     @OneToMany(mappedBy = "member")
     private Set<Review> reviews;
@@ -59,8 +57,8 @@ public class Member {
 
     @ManyToMany
     @JoinTable(name = "favorites",
-            joinColumns=@JoinColumn(name="member_id"),
-            inverseJoinColumns = @JoinColumn(name="shop_id"))
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id"))
     private Set<Shop> shops;
 
 }

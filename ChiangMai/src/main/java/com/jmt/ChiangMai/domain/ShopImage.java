@@ -1,17 +1,20 @@
 package com.jmt.ChiangMai.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table
 @Getter
 @Setter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 public class ShopImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +35,7 @@ public class ShopImage {
     @Column(nullable = false)
     private String path;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date regDate;
+    private LocalDateTime regDate;
 }

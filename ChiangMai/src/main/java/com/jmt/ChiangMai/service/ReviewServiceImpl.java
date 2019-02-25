@@ -17,7 +17,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Page<Review> getAll(Shop shop, Pageable pageable) {
 
-        return reviewRepository.findByShop(shop, pageable);
+        return null;
+//        return reviewRepository.findByShop(shop, pageable);
     }
 
     @Override

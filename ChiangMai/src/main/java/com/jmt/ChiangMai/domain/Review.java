@@ -1,12 +1,11 @@
 package com.jmt.ChiangMai.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -16,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +27,13 @@ public class Review {
     @Column(nullable = false)
     private int rating;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date regdate;
+    private LocalDateTime regdate;
 
     @OneToMany
     @JoinColumn(name = "review_id")
@@ -45,6 +44,6 @@ public class Review {
     private Shop shop;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 }

@@ -36,7 +36,6 @@ public class FileUploadUtil {
                 .type(file.getContentType())
                 .size(file.getSize())
                 .path(savedPath)
-                .regDate(new Date())
                 .build();
     }
 
@@ -49,7 +48,6 @@ public class FileUploadUtil {
                 .type(file.getContentType())
                 .size(file.getSize())
                 .path(savedPath)
-                .regDate(new Date())
                 .build();
     }
 

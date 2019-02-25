@@ -1,9 +1,10 @@
 package com.jmt.ChiangMai.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -12,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 public class ReviewImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,7 @@ public class ReviewImage {
     @Column(nullable = false)
     private String path;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date regDate;
+    private LocalDateTime regDate;
 }

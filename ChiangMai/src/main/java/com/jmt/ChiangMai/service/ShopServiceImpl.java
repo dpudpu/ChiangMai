@@ -65,8 +65,6 @@ public class ShopServiceImpl implements ShopService {
         if(shop.getShopImages().iterator().hasNext())
             shopDetailDto.setShopImage(shop.getShopImages().iterator().next());
 
-        Pageable pageable = PageRequest.of(1, PageSize.REVIEW.getLimit());
-        shopDetailDto.setReviews(reviewRepository.findByShop(shop, pageable));
         return shopDetailDto;
     }
 

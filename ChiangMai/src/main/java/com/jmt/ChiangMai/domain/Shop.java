@@ -1,12 +1,10 @@
 package com.jmt.ChiangMai.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
 
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -16,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,23 +54,20 @@ public class Shop {
     @Column(nullable = false, columnDefinition = "float default 0")
     private float rating;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date regDate;
+    private LocalDateTime regDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date updateDate;
+    protected LocalDateTime updateDate;
 
     @Column(nullable = false, columnDefinition = "int default 0")
     private int reviewTotal;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @OneToMany(mappedBy = "shop")
-    private Set<Review> reviews;
 
     @ManyToMany
     @JoinTable(name = "shop_filter",
