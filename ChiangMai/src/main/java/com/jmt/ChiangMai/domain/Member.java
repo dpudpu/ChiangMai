@@ -18,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(of="id")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

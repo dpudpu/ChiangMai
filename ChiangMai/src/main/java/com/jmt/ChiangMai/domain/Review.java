@@ -16,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(of="id")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

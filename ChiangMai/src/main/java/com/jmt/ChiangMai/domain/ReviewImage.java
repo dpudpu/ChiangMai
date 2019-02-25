@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(of="id")
 public class ReviewImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
