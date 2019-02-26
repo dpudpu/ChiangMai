@@ -18,3 +18,6 @@
 - JavaScript
 - MySQL
 - Gradle
+
+### ERD
+![ERD](./docs/ERD.jpg)
