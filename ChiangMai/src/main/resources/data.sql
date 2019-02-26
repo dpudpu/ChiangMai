@@ -30,6 +30,30 @@ INSERT INTO shop(name, type, lat, lng, address) VALUES ('チェンマイホル�
 INSERT INTO shop(name, type, lat, lng, address) VALUES ('Perception Blind Massage', '마사지', 18.788365, 98.997260,'278 Thapae Rd, Tambon Chang Moi, Amphoe Mueang Chiang Mai, Chang Wat Chiang Mai 50300 태국');
 INSERT INTO shop(name, type, lat, lng, address) VALUES ('Moment'' Notice | Jazz Club', '펍', 18.781285, 99.001671,'193 11 Sridonchai Rd, Tambon Chang Khlan, Amphoe Mueang Chiang Mai, Chang Wat Chiang Mai 50100 태국');
 
+----------
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('Perception Blind Massage', '마사지', 18.785365, 98.997460,'278 Thapae Rd, Tambon Chang Moi, Amphoe Mueang Chiang Mai, Chang Wat Chiang Mai 50300 태국');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('Moment'' Notice | Jazz Club', '펍', 18.787285, 99.001271,'193 11 Sridonchai Rd, Tambon Chang Khlan, Amphoe Mueang Chiang Mai, Chang Wat Chiang Mai 50100 태국');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('Perception Blind Massage', '식당', 18.789365, 98.997230,'278 Thapae Rd, Tambon Chang Moi, Amphoe Mueang Chiang Mai, Chang Wat Chiang Mai 50300 태국');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('Moment'' Notice | Jazz Club', '식당', 18.785285, 99.001621,'193 11 Sridonchai Rd, Tambon Chang Khlan, Amphoe Mueang Chiang Mai, Chang Wat Chiang Mai 50100 태국');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','펍',18.785420, 98.982651,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','식당',18.781270, 98.975783,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','식당',18.783420, 98.982851,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','마사지',18.782270, 98.975883,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','카페',18.786270, 98.975283,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','펍',18.784270, 98.975383,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','카페',18.782370, 98.975283,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','카페',18.786470, 98.975583,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','식당',18.783270, 98.975583,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','펍',18.790928, 98.983854,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','식당',18.790928, 98.982554,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','카페',18.760928, 98.983854,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','식당',18.793928, 98.982554,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','펍',18.790998, 98.983454,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','카페',18.790528, 98.983354,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','카페',18.792818, 98.985260,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','식당',18.792218, 98.986260,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','펍',18.792818, 98.986260,'111');
+INSERT INTO shop(name, type, lat, lng, address) VALUES ('aa','카페',18.792718, 98.988560,'111');
 
 
 -- Tag
