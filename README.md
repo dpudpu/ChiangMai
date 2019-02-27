@@ -20,6 +20,12 @@
 # ERD
 ![ERD](./docs/ERD.jpg)
 
+# 개발 과정중 발생한 문제점과 해결들
+- [Entity를 Json으로 변환할 때](https://dublin-java.tistory.com/32)
+
+
+
+
 
 # 미리보기
 ![map](./docs/images/map.png)
