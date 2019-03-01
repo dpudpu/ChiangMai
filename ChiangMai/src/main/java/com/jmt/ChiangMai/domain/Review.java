@@ -25,7 +25,7 @@ public class Review {
     private String content;
 
     @Column(nullable = false)
-    private int rating;
+    private double rating;
 
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -35,7 +35,7 @@ public class Review {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime regdate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "review_id")
     private Set<ReviewImage> reviewImages;
 

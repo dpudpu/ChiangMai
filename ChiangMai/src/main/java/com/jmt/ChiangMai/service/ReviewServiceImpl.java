@@ -2,7 +2,9 @@ package com.jmt.ChiangMai.service;
 
 import com.jmt.ChiangMai.domain.Review;
 import com.jmt.ChiangMai.domain.Shop;
+import com.jmt.ChiangMai.repository.MemberRepository;
 import com.jmt.ChiangMai.repository.ReviewRepository;
+import com.jmt.ChiangMai.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
+    private final MemberRepository memberRepository;
+    private final ShopRepository shopRepository;
 
     @Override
     public Page<Review> getAll(Shop shop, Pageable pageable) {
@@ -22,7 +26,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review add(Review review) {
+    public Review add(Review review, Long shopId, Long memberId) {
+
+        review.setMember(memberRepository.getMemberById(memberId));
+        review.setShop(shopRepository.getShopById(shopId));
+
         Review reviewInfo = reviewRepository.save(review);
         reviewInfo.setReviewImages(review.getReviewImages());
         return reviewInfo;

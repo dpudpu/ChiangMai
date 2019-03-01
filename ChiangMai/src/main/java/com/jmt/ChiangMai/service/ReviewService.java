@@ -9,7 +9,7 @@ public interface ReviewService {
 
     Page<Review> getAll(Shop shop, Pageable pageable);
 
-    Review add(Review review);
+    Review add(Review review, Long shopId, Long memberId);
 
     Review modify(Review review);
 
