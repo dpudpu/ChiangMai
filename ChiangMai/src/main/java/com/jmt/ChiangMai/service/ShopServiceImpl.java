@@ -78,7 +78,7 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     public Shop add(Shop shop, Long memberId, List<String> filters) {
         shop.setTags(tagRepository.findByName(filters));
-        shop.setMember(memberRepository.getOne(memberId));
+        shop.setMember(memberRepository.getMemberById(memberId));
         Shop shopInfo = shopRepository.save(shop);
         shopInfo.setShopImages(shopInfo.getShopImages());
         return shopInfo;
